@@ -1,5 +1,5 @@
 import { defineNuxtPlugin } from '#app'
 
-export default defineNuxtPlugin((_nuxtApp) => {
-  console.log('Plugin injected by @threenine/nuxstr-comments!')
+export default defineNuxtPlugin(() => {
+  // Placeholder plugin; NDK is managed via composables.
 })

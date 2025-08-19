@@ -1,5 +1,9 @@
 export default defineNuxtConfig({
-  modules: ['../src/module'],
-  myModule: {},
+  modules: ['@nuxt/content', '@nuxt/ui', '../src/module'],
   devtools: { enabled: true },
+  experimental: { nativeSqlite: true },
+  compatibilityDate: '2025-08-19',
+  nuxstrComments: {
+    relays: ['wss://relay.damus.io', 'wss://relay.nostr.band'],
+  },
 })

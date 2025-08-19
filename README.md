@@ -22,10 +22,10 @@ Nuxstr Comments for doing amazing things.
 
 ## Features
 
-<!-- Highlight some of the features your module provide here -->
-- ⛰ &nbsp;Foo
-- 🚠 &nbsp;Bar
-- 🌲 &nbsp;Baz
+- Nostr-powered comments for Nuxt Content blog posts
+- NIP-07 login prompt if user is not authenticated
+- Comments are written in Markdown and rendered via @nuxt/content's ContentRendererMarkdown
+- Configurable relay list and tagging strategy
 
 ## Quick Setup
 
@@ -36,6 +36,40 @@ npx nuxi module add @threenine/nuxstr-comments
 ```
 
 That's it! You can now use Nuxstr Comments in your Nuxt app ✨
+
+### Usage
+
+1. Ensure @nuxt/content is enabled and your blog post pages use ContentDoc or render content files.
+2. Add the comments component where you want comments to appear (usually below a ContentDoc):
+
+```vue
+<template>
+  <div>
+    <ContentDoc />
+    <NuxstrComments />
+  </div>
+</template>
+```
+
+By default, the component tags comments by the current route path (e.g., content:/blog/my-post) and fetches them from configured relays.
+
+3. Configuration (nuxt.config.ts):
+
+```ts
+export default defineNuxtConfig({
+  modules: [
+    '@nuxt/content',
+    '@threenine/nuxstr-comments',
+  ],
+  nuxstrComments: {
+    relays: ['wss://relay.damus.io', 'wss://relay.nostr.band'],
+    tagStrategy: 'path',
+    tagPrefix: 'content:',
+  },
+})
+```
+
+When a user attempts to post, they will be prompted to log in with their Nostr browser extension (NIP-07). Comments are published as kind:1 notes tagged with a `t` tag containing the content tag (e.g., `content:/blog/my-post`). Rendering of comment bodies uses @nuxt/content's ContentRendererMarkdown component so users can write markdown.
 
 
 ## Contribution

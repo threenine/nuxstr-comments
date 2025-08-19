@@ -1,19 +1,44 @@
-import { defineNuxtModule, addPlugin, createResolver } from '@nuxt/kit'
+import { defineNuxtModule, addPlugin, addComponent, addImports, createResolver } from '@nuxt/kit'
+import type { defineNuxtModuleMeta } from '@nuxt/kit'
+import { defu } from 'defu'
 
 // Module options TypeScript interface definition
-export interface ModuleOptions {}
+export interface ModuleOptions {
+  relays?: string[]
+  tagStrategy?: 'path' | 'id' | 'custom'
+  tagPrefix?: string // e.g., 'content:' -> results in tag value like 'content:/blog/my-post'
+}
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: '@threenine/nuxstr-comments',
-    configKey: 'myModule',
-  },
+    configKey: 'nuxstrComments',
+  } as defineNuxtModuleMeta,
   // Default configuration options of the Nuxt module
-  defaults: {},
-  setup(_options, _nuxt) {
+  defaults: {
+    relays: ['wss://relay.damus.io', 'wss://relay.nostr.band', 'wss://nos.lol'],
+    tagStrategy: 'path',
+    tagPrefix: 'content:',
+  },
+  setup(options, nuxt) {
     const resolver = createResolver(import.meta.url)
 
-    // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
+    // Expose runtime config to plugin
+    nuxt.options.runtimeConfig.public.nuxstrComments = defu(nuxt.options.runtimeConfig.public.nuxstrComments || {}, options)
+
+    // Register plugin
     addPlugin(resolver.resolve('./runtime/plugin'))
+
+    // Register composables
+    addImports([
+      { name: 'useNuxstr', as: 'useNuxstr', from: resolver.resolve('./runtime/composables/useNuxstr') },
+      { name: 'useNuxstrComments', as: 'useNuxstrComments', from: resolver.resolve('./runtime/composables/useNuxstrComments') },
+    ])
+
+    // Register component
+    addComponent({
+      name: 'NuxstrComments',
+      filePath: resolver.resolve('./runtime/components/NuxstrComments.vue'),
+    })
   },
 })

@@ -1,0 +1,62 @@
+{
+  "name": "@threenine/nuxstr-comments",
+  "version": "1.0.0",
+  "description": "Nuxstr Comments",
+  "repository": "your-org/@threenine/nuxstr-comments",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.mts",
+      "import": "./dist/module.mjs"
+    }
+  },
+  "main": "./dist/module.mjs",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/types.d.mts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepack": "nuxt-module-build build",
+    "dev": "npm run dev:prepare && nuxi dev playground",
+    "dev:build": "nuxi build playground",
+    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
+    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@nostr-dev-kit/ndk": "^2.14.33",
+    "@nuxt/kit": "^4.0.3",
+    "better-sqlite3": "^12.2.0",
+    "nostr-tools": "^2.16.2"
+  },
+  "devDependencies": {
+    "@nuxt/content": "3.6.3",
+    "@nuxt/devtools": "^2.6.2",
+    "@nuxt/eslint": "1.9.0",
+    "@nuxt/eslint-config": "^1.9.0",
+    "@nuxt/module-builder": "^1.0.2",
+    "@nuxt/schema": "^4.0.3",
+    "@nuxt/scripts": "0.11.10",
+    "@nuxt/test-utils": "^3.19.2",
+    "@nuxt/ui": "3.3.2",
+    "@types/node": "latest",
+    "@unhead/vue": "^2.0.14",
+    "changelogen": "^0.6.2",
+    "eslint": "^9.33.0",
+    "nuxt": "^4.0.3",
+    "typescript": "~5.9.2",
+    "vitest": "^3.2.4",
+    "vue-tsc": "^3.0.5"
+  },
+  "packageManager": "pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748"
+}

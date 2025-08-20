@@ -4,6 +4,6 @@ export default defineNuxtConfig({
   experimental: { nativeSqlite: true },
   compatibilityDate: '2025-08-19',
   nuxstrComments: {
-    relays: ['wss://relay.damus.io', 'wss://relay.nostr.band'],
+    relays: ['wss://relay.damus.io', 'wss://relay.nostr.band', 'wss://relay.primal.net'],
   },
 })

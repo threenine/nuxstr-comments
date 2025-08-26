@@ -13,4 +13,7 @@
 - nostr-tools
 - NDK
 
+# package manager
+- pnpm 
+
 

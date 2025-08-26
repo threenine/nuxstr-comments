@@ -7,6 +7,9 @@ export default defineNuxtConfig({
     '@nuxt/test-utils',
     '@nuxt/ui',
   ],
+  content: {
+    experimental: { nativeSqlite: true },
+  },
   experimental: { nativeSqlite: true },
   compatibilityDate: '2025-08-19',
 })

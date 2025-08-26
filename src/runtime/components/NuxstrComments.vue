@@ -58,7 +58,7 @@ function createRoot(html: string): RootNode {
     children: [
       {
         type: 'element',
-        tag: 'div',
+        tag: 'p',
         props: { innerHTML: html },
       },
     ],
@@ -103,9 +103,9 @@ function createRoot(html: string): RootNode {
       <div
         v-for="c in comments"
         :key="c.id"
-        class="rounded border border-gray-200 dark:border-gray-800 p-3"
+        class="rounded border border-gray-200 dark:border-gray-800 p-3 mt-2"
       >
-        <div class="flex items-center gap-3 mb-3">
+        <div class="flex items-center gap-3 mb-3 mt-2">
           <div
             v-if="c.profile?.picture"
             class="flex-shrink-0"
@@ -119,13 +119,11 @@ function createRoot(html: string): RootNode {
           <div class="flex-1 min-w-0">
             <div class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
               {{ c.profile?.display_name || c.profile?.name || `${c.pubkey.slice(0, 8)}…` }}
-            </div>
-            <div class="text-xs text-gray-500">
-              <span>{{ new Date(c.created_at * 1000).toLocaleString() }}</span>
+              <span class="text-xs text-gray-500">{{ new Date(c.created_at * 1000).toLocaleString() }}</span>
             </div>
           </div>
         </div>
-        <div class="nuxstr-comments">
+        <div class="prose prose-sm">
           <ContentRenderer :value="parseContent(c.content)" />
         </div>
       </div>
@@ -134,6 +132,7 @@ function createRoot(html: string): RootNode {
     <div class="space-y-2">
       <UTextarea
         v-model="draft"
+        class="w-full"
         placeholder="Write a comment in Markdown…"
         :rows="4"
       />

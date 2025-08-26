@@ -3,11 +3,20 @@ import { useRoute, useRuntimeConfig } from '#imports'
 import { useNuxstr } from './useNuxstr'
 import { NDKEvent, type NDKFilter, NDKKind } from '@nostr-dev-kit/ndk'
 
+export type NuxstrProfile = {
+  name?: string
+  display_name?: string
+  about?: string
+  picture?: string
+  nip05?: string
+}
+
 export type NuxstrComment = {
   id: string
   pubkey: string
   created_at: number
   content: string
+  profile?: NuxstrProfile
 }
 
 export function useNuxstrComments(customContentId?: string) {
@@ -34,6 +43,30 @@ export function useNuxstrComments(customContentId?: string) {
     return `${prefix}${contentId.value}`
   }
 
+  async function fetchProfile(pubkey: string): Promise<NuxstrProfile | undefined> {
+    try {
+      const filter: NDKFilter = { kinds: [0], authors: [pubkey] }
+      const events = await ndk.fetchEvents(filter)
+      const latestEvent = Array.from(events)
+        .sort((a, b) => (b.created_at || 0) - (a.created_at || 0))[0]
+
+      if (!latestEvent?.content) return undefined
+
+      const profileData = JSON.parse(latestEvent.content)
+      return {
+        name: profileData.name,
+        display_name: profileData.display_name,
+        about: profileData.about,
+        picture: profileData.picture,
+        nip05: profileData.nip05,
+      }
+    }
+    catch (error) {
+      console.warn('Failed to fetch profile for', pubkey, error)
+      return undefined
+    }
+  }
+
   async function fetchComments() {
     loading.value = true
     error.value = null
@@ -42,12 +75,22 @@ export function useNuxstrComments(customContentId?: string) {
       const filter: NDKFilter<NDKKind> = { kinds: [NDKKind.Text], ['#t']: [tagValue()] }
       const events = await ndk.fetchEvents(filter)
       const list = Array.from(events).sort((a, b) => (a.created_at || 0) - (b.created_at || 0))
+
+      // Fetch profiles for all unique pubkeys
+      const pubkeys = [...new Set(list.map(e => e.pubkey))]
+      const profilePromises = pubkeys.map(async (pubkey) => {
+        const profile = await fetchProfile(pubkey)
+        return { pubkey, profile }
+      })
+      const profileResults = await Promise.all(profilePromises)
+      const profileMap = new Map(profileResults.map(r => [r.pubkey, r.profile]))
+
       comments.value = list.map(e => ({
         id: e.id,
         pubkey: e.pubkey,
         created_at: e.created_at || 0,
         content: e.content,
-
+        profile: profileMap.get(e.pubkey),
       }))
     }
     catch (e: unknown) {

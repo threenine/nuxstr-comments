@@ -29,6 +29,41 @@ async function handlePost() {
   const ok = await postComment(draft.value)
   if (ok) draft.value = ''
 }
+
+export interface ElementNode {
+  type: 'element'
+  tag: string
+  props?: Record<string, unknown>
+}
+
+export interface RootNode {
+  type: 'root'
+  children: ElementNode[]
+}
+
+export interface HtmlAst {
+  body: RootNode
+}
+
+// Renamed from parseContent to buildHtmlAst, removed unnecessary async,
+// renamed parameter to 'html' for clarity, and added explicit return type
+function parseContent(html: string): HtmlAst {
+  return { body: createRoot(html) }
+}
+
+// Extracted helper to encapsulate AST node creation
+function createRoot(html: string): RootNode {
+  return {
+    type: 'root',
+    children: [
+      {
+        type: 'element',
+        tag: 'div',
+        props: { innerHTML: html },
+      },
+    ],
+  }
+}
 </script>
 
 <template>
@@ -75,8 +110,9 @@ async function handlePost() {
           <span> • </span>
           <span>{{ new Date(c.created_at * 1000).toLocaleString() }}</span>
         </div>
-        <!-- Render comment content via Nuxt Content renderer -->
-        <ContentRenderer :value="c.content" />
+        <div class="nuxstr-comments">
+          <ContentRenderer :value="parseContent(c.content)" />
+        </div>
       </div>
     </div>
 

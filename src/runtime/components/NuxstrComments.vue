@@ -45,8 +45,6 @@ export interface HtmlAst {
   body: RootNode
 }
 
-// Renamed from parseContent to buildHtmlAst, removed unnecessary async,
-// renamed parameter to 'html' for clarity, and added explicit return type
 function parseContent(html: string): HtmlAst {
   return { body: createRoot(html) }
 }
@@ -58,7 +56,7 @@ function createRoot(html: string): RootNode {
     children: [
       {
         type: 'element',
-        tag: 'p',
+        tag: 'div',
         props: { innerHTML: html },
       },
     ],
@@ -123,7 +121,7 @@ function createRoot(html: string): RootNode {
             </div>
           </div>
         </div>
-        <div class="prose prose-sm">
+        <div class="prose prose-sm prose-invert">
           <ContentRenderer :value="parseContent(c.content)" />
         </div>
       </div>

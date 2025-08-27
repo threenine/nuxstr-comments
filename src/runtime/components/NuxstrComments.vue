@@ -7,7 +7,7 @@ import type { HtmlAst, RootNode } from '~/src/runtime/types'
 const props = defineProps<{ contentId?: string }>()
 
 const { login, isLoggedIn } = useNuxstr()
-const { comments, fetchComments, postComment, loading, error } = useNuxstrComments(props.contentId)
+const { comments, fetchComments, postComment, loading } = useNuxstrComments(props.contentId)
 
 const comment = ref('')
 onMounted(() => {

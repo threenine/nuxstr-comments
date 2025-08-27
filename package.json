@@ -36,7 +36,8 @@
   "dependencies": {
     "@nostr-dev-kit/ndk": "^2.14.33",
     "@nuxt/kit": "^4.0.3",
-    "nostr-tools": "^2.16.2"
+    "nostr-tools": "^2.16.2",
+    "defu": "^6.1.4"
   },
   "devDependencies": {
     "@nuxt/content": "3.6.3",

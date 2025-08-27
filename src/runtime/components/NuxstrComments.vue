@@ -84,16 +84,16 @@ function createRoot(html: string): RootNode {
             v-if="c.profile?.picture"
             class="flex-shrink-0"
           >
-            <img
+            <UAvatar
               :src="c.profile.picture"
               :alt="c.profile.name || c.profile.display_name || 'User avatar'"
               class="w-8 h-8 rounded-full object-cover"
-            >
+            />
           </div>
           <div class="flex-1 min-w-0">
-            <div class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+            <div class="truncate">
               {{ c.profile?.display_name || c.profile?.name || `${c.pubkey.slice(0, 8)}…` }}
-              <span class="text-xs text-gray-500">{{ new Date(c.created_at * 1000).toLocaleString() }}</span>
+              <span class="text-xs">{{ new Date(c.created_at * 1000).toLocaleString() }}</span>
             </div>
           </div>
         </div>

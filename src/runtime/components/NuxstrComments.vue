@@ -117,7 +117,7 @@ function createRoot(html: string): RootNode {
       <UTextarea
         v-model="draft"
         class="w-full"
-        placeholder="Write a comment in Markdown…"
+        placeholder="Write a comment ...."
         :rows="4"
       />
       <div class="flex justify-end">

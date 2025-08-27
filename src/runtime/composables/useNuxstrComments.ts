@@ -1,23 +1,8 @@
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useRoute, useRuntimeConfig } from '#imports'
 import { useNuxstr } from './useNuxstr'
 import { NDKEvent, type NDKFilter, NDKKind } from '@nostr-dev-kit/ndk'
-
-export type NuxstrProfile = {
-  name?: string
-  display_name?: string
-  about?: string
-  picture?: string
-  nip05?: string
-}
-
-export type NuxstrComment = {
-  id: string
-  pubkey: string
-  created_at: number
-  content: string
-  profile?: NuxstrProfile
-}
+import type { NuxstrComment, NuxstrProfile } from '~/src/runtime/types'
 
 export function useNuxstrComments(customContentId?: string) {
   const { ndk, connect, isLoggedIn } = useNuxstr()
@@ -72,7 +57,7 @@ export function useNuxstrComments(customContentId?: string) {
     error.value = null
     try {
       await connect()
-      const filter: NDKFilter<NDKKind> = { kinds: [NDKKind.Text], ['#t']: [tagValue()] }
+      const filter: NDKFilter<NDKKind> = { kinds: [NDKKind.GenericReply], ['#t']: [tagValue()] }
       const events = await ndk.fetchEvents(filter)
       const list = Array.from(events).sort((a, b) => (a.created_at || 0) - (b.created_at || 0))
 
@@ -101,11 +86,11 @@ export function useNuxstrComments(customContentId?: string) {
     }
   }
 
-  async function postComment(markdown: string) {
+  async function postComment(comment: string) {
     await connect()
     const e = new NDKEvent(ndk)
-    e.kind = 1
-    e.content = markdown
+    e.kind = NDKKind.GenericReply
+    e.content = comment
     e.tags = [
       ['t', tagValue()],
     ]
@@ -114,7 +99,7 @@ export function useNuxstrComments(customContentId?: string) {
       return false
     })
     if (ok) {
-      comments.value.push({ id: e.id!, pubkey: e.pubkey!, created_at: e.created_at || Math.floor(Date.now() / 1000), content: e.content })
+      await fetchComments()
     }
     return ok
   }

@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useNuxstr } from '../composables/useNuxstr'
 import { useNuxstrComments } from '../composables/useNuxstrComments'
+import type { HtmlAst, RootNode } from '~/src/runtime/types'
 
 const props = defineProps<{ contentId?: string }>()
 
@@ -28,21 +29,6 @@ async function handlePost() {
   if (!draft.value.trim()) return
   const ok = await postComment(draft.value)
   if (ok) draft.value = ''
-}
-
-export interface ElementNode {
-  type: 'element'
-  tag: string
-  props?: Record<string, unknown>
-}
-
-export interface RootNode {
-  type: 'root'
-  children: ElementNode[]
-}
-
-export interface HtmlAst {
-  body: RootNode
 }
 
 function parseContent(html: string): HtmlAst {

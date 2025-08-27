@@ -2,7 +2,7 @@
   "name": "@threenine/nuxstr-comments",
   "version": "1.0.0",
   "description": "Nuxstr Comments",
-  "repository": "your-org/@threenine/nuxstr-comments",
+  "repository": "threenine/nuxstr-comments",
   "license": "MIT",
   "type": "module",
   "exports": {

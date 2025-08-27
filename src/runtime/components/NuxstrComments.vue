@@ -3,7 +3,6 @@ import { ref, onMounted } from 'vue'
 import { useNuxstr } from '../composables/useNuxstr'
 import { useNuxstrComments } from '../composables/useNuxstrComments'
 import type { HtmlAst, RootNode } from '~/src/runtime/types'
-import { useToast } from '#ui/composables/useToast'
 
 const props = defineProps<{ contentId?: string }>()
 
@@ -50,9 +49,10 @@ function createRoot(html: string): RootNode {
         v-if="!isLoggedIn"
         color="primary"
         variant="solid"
+        leading-icon="game-icons:ostrich"
         @click="login"
       >
-        Login with Nostr
+        Login
       </UButton>
     </div>
 

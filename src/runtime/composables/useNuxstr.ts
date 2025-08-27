@@ -68,9 +68,7 @@ export function useNuxstr() {
     return false
   }
   async function login(): Promise<void> {
-    alert('Login with Nostr')
     if (await checkExtension()) {
-      alert('Nostr extension not found')
       const ndk = initializeNDK()
       const signer = new NDKNip07Signer()
       ndk.signer = signer

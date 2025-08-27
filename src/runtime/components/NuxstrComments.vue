@@ -57,15 +57,8 @@ function createRoot(html: string): RootNode {
     </div>
 
     <div
-      v-if="error"
-      class="text-red-600 text-sm"
-    >
-      {{ error }}
-    </div>
-
-    <div
       v-if="loading"
-      class="text-sm text-gray-500"
+      class="text-sm"
     >
       Loading comments…
     </div>
@@ -77,7 +70,7 @@ function createRoot(html: string): RootNode {
       <div
         v-for="c in comments"
         :key="c.id"
-        class="rounded border border-gray-200 dark:border-gray-800 p-3 mt-2"
+        class="rounded border p-3 mt-2"
       >
         <div class="flex items-center gap-3 mb-3 mt-2">
           <div

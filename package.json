@@ -27,7 +27,7 @@
     "dev": "npm run dev:prepare && nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
-    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && git push --follow-tags",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch",
@@ -36,11 +36,12 @@
   "dependencies": {
     "@nostr-dev-kit/ndk": "^2.14.33",
     "@nuxt/kit": "^4.0.3",
-    "nostr-tools": "^2.16.2",
-    "defu": "^6.1.4"
+    "defu": "^6.1.4",
+    "dompurify": "^3.2.6",
+    "marked": "^16.2.1",
+    "nostr-tools": "^2.16.2"
   },
   "devDependencies": {
-    "@nuxt/content": "3.6.3",
     "@nuxt/devtools": "^2.6.2",
     "@nuxt/eslint": "1.9.0",
     "@nuxt/eslint-config": "^1.9.0",

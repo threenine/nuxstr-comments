@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useNuxstr } from '../composables/useNuxstr'
 import { useNuxstrComments } from '../composables/useNuxstrComments'
-import type { HtmlAst, RootNode } from '~/src/runtime/types'
+import { marked } from 'marked'
 
 const props = defineProps<{ contentId?: string }>()
 
@@ -18,24 +18,6 @@ async function handlePost() {
   if (!comment.value.trim()) return
   const ok = await postComment(comment.value)
   if (ok) comment.value = ''
-}
-
-function parseContent(html: string): HtmlAst {
-  return { body: createRoot(html) }
-}
-
-// Extracted helper to encapsulate AST node creation
-function createRoot(html: string): RootNode {
-  return {
-    type: 'root',
-    children: [
-      {
-        type: 'element',
-        tag: 'div',
-        props: { innerHTML: html },
-      },
-    ],
-  }
 }
 </script>
 
@@ -91,30 +73,30 @@ function createRoot(html: string): RootNode {
           </div>
         </div>
         <div class="prose prose-sm prose-invert mt-2">
-          <ContentRenderer :value="parseContent(c.content)" />
+          <div v-html="marked.parse(c.content)" />
         </div>
       </div>
-    </div>
 
-    <div
-      v-if="isLoggedIn"
-      class="space-y-2"
-    >
-      <UTextarea
-        v-model="comment"
-        class="w-full"
-        placeholder="Write a comment ...."
-        :rows="4"
-      />
-      <div class="flex justify-end">
-        <UButton
-          color="primary"
-          variant="solid"
-          :disabled="!comment.trim()"
-          @click="handlePost"
-        >
-          Post Comment
-        </UButton>
+      <div
+        v-if="isLoggedIn"
+        class="space-y-2"
+      >
+        <UTextarea
+          v-model="comment"
+          class="w-full"
+          placeholder="Write a comment ...."
+          :rows="4"
+        />
+        <div class="flex justify-end">
+          <UButton
+            color="primary"
+            variant="solid"
+            :disabled="!comment.trim()"
+            @click="handlePost"
+          >
+            Post Comment
+          </UButton>
+        </div>
       </div>
     </div>
   </div>

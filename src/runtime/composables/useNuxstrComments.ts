@@ -3,6 +3,7 @@ import { useRoute, useRuntimeConfig } from '#imports'
 import { useNuxstr } from './useNuxstr'
 import { NDKEvent, type NDKFilter, NDKKind } from '@nostr-dev-kit/ndk'
 import type { NuxstrComment, NuxstrProfile } from '~/src/runtime/types'
+import { marked } from 'marked'
 
 export function useNuxstrComments(customContentId?: string) {
   const { ndk, connect, isLoggedIn } = useNuxstr()

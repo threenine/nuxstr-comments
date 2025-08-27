@@ -1,18 +1,16 @@
-name: ci
+name: release
+
 on:
   push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+    tags:
+      - "*"
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4.3.0
+      - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
@@ -33,8 +31,17 @@ jobs:
       - name: Prepare Nuxt
         run: pnpm dev:prepare
 
+
       - name: Run linting
         run: pnpm lint
 
       - name: Run tests
         run: pnpm test
+
+      - name: Build package
+        run: pnpm prepack
+
+      - name: Publish to NPM
+        run: pnpm publish --no-git-checks --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

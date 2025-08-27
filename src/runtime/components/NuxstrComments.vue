@@ -73,7 +73,9 @@ async function handlePost() {
           </div>
         </div>
         <div class="prose prose-sm prose-invert mt-2">
+          <!-- eslint-disable-next-line vue/no-v-html -->
           <div v-html="marked.parse(c.content)" />
+          <!-- eslint-disable-next-line vue/no-v-html -->
         </div>
       </div>
 

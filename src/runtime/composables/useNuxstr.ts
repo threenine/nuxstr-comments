@@ -73,7 +73,6 @@ export function useNuxstr() {
       const signer = new NDKNip07Signer()
       ndk.signer = signer
       const user = await signer.user()
-      console.log('User:', user)
       state.signer = signer
       state.pubkey.value = user.pubkey
       await connect()

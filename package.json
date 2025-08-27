@@ -36,7 +36,6 @@
   "dependencies": {
     "@nostr-dev-kit/ndk": "^2.14.33",
     "@nuxt/kit": "^4.0.3",
-    "better-sqlite3": "^12.2.0",
     "nostr-tools": "^2.16.2"
   },
   "devDependencies": {
@@ -53,7 +52,6 @@
     "@testing-library/vue": "^8.1.0",
     "@types/node": "latest",
     "@unhead/vue": "^2.0.14",
-    "@vue/test-utils": "^2.4.6",
     "changelogen": "^0.6.2",
     "eslint": "^9.33.0",
     "jsdom": "^26.1.0",

@@ -3,32 +3,22 @@ import { ref, onMounted } from 'vue'
 import { useNuxstr } from '../composables/useNuxstr'
 import { useNuxstrComments } from '../composables/useNuxstrComments'
 import type { HtmlAst, RootNode } from '~/src/runtime/types'
+import { useToast } from '#ui/composables/useToast'
 
 const props = defineProps<{ contentId?: string }>()
 
 const { login, isLoggedIn } = useNuxstr()
 const { comments, fetchComments, postComment, loading, error } = useNuxstrComments(props.contentId)
 
-const draft = ref('')
-
+const comment = ref('')
 onMounted(() => {
   fetchComments()
 })
 
 async function handlePost() {
-  if (!isLoggedIn.value) {
-    try {
-      await login()
-    }
-    catch (e: unknown) {
-      const msg = (e as Error)?.message || 'Login failed'
-      alert(msg)
-      return
-    }
-  }
-  if (!draft.value.trim()) return
-  const ok = await postComment(draft.value)
-  if (ok) draft.value = ''
+  if (!comment.value.trim()) return
+  const ok = await postComment(comment.value)
+  if (ok) comment.value = ''
 }
 
 function parseContent(html: string): HtmlAst {
@@ -107,15 +97,18 @@ function createRoot(html: string): RootNode {
             </div>
           </div>
         </div>
-        <div class="prose prose-sm prose-invert">
+        <div class="prose prose-sm prose-invert mt-2">
           <ContentRenderer :value="parseContent(c.content)" />
         </div>
       </div>
     </div>
 
-    <div class="space-y-2">
+    <div
+      v-if="isLoggedIn"
+      class="space-y-2"
+    >
       <UTextarea
-        v-model="draft"
+        v-model="comment"
         class="w-full"
         placeholder="Write a comment ...."
         :rows="4"
@@ -124,7 +117,7 @@ function createRoot(html: string): RootNode {
         <UButton
           color="primary"
           variant="solid"
-          :disabled="!draft.trim()"
+          :disabled="!comment.trim()"
           @click="handlePost"
         >
           Post Comment

@@ -2,6 +2,7 @@ import { computed, ref } from 'vue'
 import { useRuntimeConfig } from '#imports'
 
 import NDK, { NDKNip07Signer } from '@nostr-dev-kit/ndk'
+import { useToast } from '#ui/composables/useToast'
 
 export function useNuxstr() {
   // Singleton per client
@@ -32,7 +33,7 @@ export function useNuxstr() {
     relays?: string[]
   }
 
-  function ensureNdk() {
+  function initializeNDK() {
     if (!state.ndk) {
       state.ndk = new NDK({ explicitRelayUrls: opts.relays || [] })
     }
@@ -42,7 +43,7 @@ export function useNuxstr() {
   const isLoggedIn = computed(() => !!state.pubkey.value)
 
   async function connect() {
-    const ndk = ensureNdk()
+    const ndk = initializeNDK()
     if (state.isConnected.value) return ndk
     if (state.isConnecting.value) return ndk
     state.isConnecting.value = true
@@ -55,29 +56,39 @@ export function useNuxstr() {
       state.isConnecting.value = false
     }
   }
+  async function checkExtension(): Promise<boolean> {
+    if ('nostr' in window) return true
 
-  async function login() {
-    if (typeof window === 'undefined') throw new Error('Nostr login is only available in the browser')
-    if (!('nostr' in window)) {
-      throw new Error('NIP-07 browser extension not found. Please install a Nostr extension like nos2x, Alby, or Coracle.')
+    const toast = useToast()
+    toast.add({
+      title: 'Nostr extension not found',
+      description: 'NIP-07 browser extension not found. Install a Nostr extension like nos2x, Alby, or Coracle.',
+      icon: 'game-icons:ostrich',
+    })
+    return false
+  }
+  async function login(): Promise<void> {
+    alert('Login with Nostr')
+    if (await checkExtension()) {
+      alert('Nostr extension not found')
+      const ndk = initializeNDK()
+      const signer = new NDKNip07Signer()
+      ndk.signer = signer
+      const user = await signer.user()
+      console.log('User:', user)
+      state.signer = signer
+      state.pubkey.value = user.pubkey
+      await connect()
     }
-    const ndk = ensureNdk()
-    const signer = new NDKNip07Signer()
-    ndk.signer = signer
-    const user = await signer.user()
-    state.signer = signer
-    state.pubkey.value = user.pubkey
-    await connect()
-    return user.pubkey
   }
 
-  function logout() {
+  function logout(): void {
     state.signer = null
     state.pubkey.value = null
   }
 
   return {
-    get ndk() { return ensureNdk() },
+    get ndk() { return initializeNDK() },
     connect,
     login,
     logout,

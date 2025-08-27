@@ -24,7 +24,7 @@ export function useNuxstrComments(customContentId?: string) {
   })
 
   function tagValue() {
-    const prefix = opts.tagPrefix || 'content:'
+    const prefix = opts.tagPrefix || 'comment:'
     return `${prefix}${contentId.value}`
   }
 

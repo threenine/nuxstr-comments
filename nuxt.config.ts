@@ -10,6 +10,5 @@ export default defineNuxtConfig({
   content: {
     experimental: { nativeSqlite: true },
   },
-  experimental: { nativeSqlite: true },
   compatibilityDate: '2025-08-19',
 })

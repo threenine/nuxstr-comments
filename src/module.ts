@@ -1,24 +1,23 @@
 import { defineNuxtModule, addPlugin, addComponent, addImports, createResolver } from '@nuxt/kit'
-import type { defineNuxtModuleMeta } from '@nuxt/kit'
 import { defu } from 'defu'
 
 // Module options TypeScript interface definition
 export interface ModuleOptions {
   relays?: string[]
   tagStrategy?: 'path' | 'id' | 'custom'
-  tagPrefix?: string // e.g., 'content:' -> results in tag value like 'content:/blog/my-post'
+  tagPrefix?: string // e.g., 'comment:' -> results in tag value like 'comment:/blog/my-post'
 }
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: '@threenine/nuxstr-comments',
     configKey: 'nuxstrComments',
-  } as defineNuxtModuleMeta,
+  },
   // Default configuration options of the Nuxt module
   defaults: {
     relays: ['wss://relay.damus.io', 'wss://relay.nostr.band', 'wss://nos.lol'],
     tagStrategy: 'path',
-    tagPrefix: 'content:',
+    tagPrefix: 'comment:',
   },
   setup(options, nuxt) {
     const resolver = createResolver(import.meta.url)

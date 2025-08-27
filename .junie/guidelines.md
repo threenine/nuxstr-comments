@@ -1,19 +1,22 @@
 
 
 # Frontend
-- Nuxt 4.0
-- nuxt/ui
-- tailwindcss
-- vite
-- vueuse
+* Nuxt 4.0
+* nuxt/ui
+* tailwindcss
+* vite
+* vueuse
 
 # Backend
-- vue
-- Typescript
-- nostr-tools
-- NDK
+* vue
+* Typescript
+* nostr*tools
+* NDK
+
+# Unit Test
+* vitest
 
 # package manager
-- pnpm 
+* pnpm 
 
 

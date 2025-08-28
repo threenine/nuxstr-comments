@@ -7,4 +7,9 @@ export default defineNuxtConfig({
     '@nuxt/ui',
   ],
   compatibilityDate: '2025-08-19',
+  vite: {
+    optimizeDeps: {
+      include: ['tseep'],
+    },
+  },
 })

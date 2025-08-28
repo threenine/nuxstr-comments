@@ -1,6 +1,5 @@
 import { computed, ref } from 'vue'
 import { useRuntimeConfig } from '#imports'
-
 import NDK, { NDKNip07Signer } from '@nostr-dev-kit/ndk'
 import { useToast } from '#ui/composables/useToast'
 

@@ -37,7 +37,8 @@
     "@nostr-dev-kit/ndk": "^2.13.3",
     "@nuxt/kit": "^4.0.3",
     "defu": "^6.1.4",
-    "marked": "^16.2.1"
+    "marked": "^16.2.1",
+    "@types/node": "latest"
   },
   "devDependencies": {
     "@nuxt/devtools": "^2.6.2",
@@ -50,7 +51,6 @@
     "@nuxt/ui": "3.3.2",
     "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/vue": "^8.1.0",
-    "@types/node": "latest",
     "@unhead/vue": "^2.0.14",
     "changelogen": "^0.6.2",
     "eslint": "^9.33.0",

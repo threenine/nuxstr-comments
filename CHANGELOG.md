@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.0.13
+
+[compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.0.12...v1.0.13)
+
+### 🏡 Chore
+
+- **module:** Configure Vite and Nitro for `tseep` and `@nostr-dev-kit/ndk` ([b50c0bb](https://github.com/threenine/nuxstr-comments/commit/b50c0bb))
+
+### ❤️ Contributors
+
+- Gary Woodfine <lnb0l9dc@duck.com>
+
 ## v1.0.12
 
 [compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.0.11...v1.0.12)

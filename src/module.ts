@@ -21,9 +21,11 @@ export default defineNuxtModule<ModuleOptions>({
   },
   setup(options, nuxt) {
     const resolver = createResolver(import.meta.url)
-
+    nuxt.options.build.transpile ||= []
+    nuxt.options.build.transpile.push('@nostr-dev-kit/ndk')
     // Expose runtime config to plugin
     nuxt.options.runtimeConfig.public.nuxstrComments = defu(nuxt.options.runtimeConfig.public.nuxstrComments || {}, options)
+
 
     // Register plugin
     addPlugin(resolver.resolve('./runtime/plugin'))

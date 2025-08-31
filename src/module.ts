@@ -21,8 +21,49 @@ export default defineNuxtModule<ModuleOptions>({
   },
   setup(options, nuxt) {
     const resolver = createResolver(import.meta.url)
-    nuxt.options.build.transpile ||= []
-    nuxt.options.build.transpile.push('@nostr-dev-kit/ndk')
+
+    // Configure Vite to handle tseep and @nostr-dev-kit/ndk properly
+    nuxt.hook('vite:extendConfig', (config) => {
+      // Ensure optimizeDeps exist
+      config.optimizeDeps = config.optimizeDeps || {}
+      config.optimizeDeps.include = config.optimizeDeps.include || []
+
+      // Pre-bundle these packages for better ESM/CJS interop
+      config.optimizeDeps.include.push('tseep', '@nostr-dev-kit/ndk')
+
+      // For SSR, don't externalize these packages
+      config.ssr = config.ssr || {}
+
+      // Handle the noExternal property correctly based on its current type
+      const packagesToInclude = ['tseep', '@nostr-dev-kit/ndk']
+
+      if (!config.ssr.noExternal) {
+        config.ssr.noExternal = packagesToInclude
+      }
+      else if (Array.isArray(config.ssr.noExternal)) {
+        config.ssr.noExternal.push(...packagesToInclude)
+      }
+      else if (config.ssr.noExternal === true) {
+        // If it's true, leave it as is (all packages are not externalized)
+        // Don't need to do anything
+      }
+      else {
+        // If it's a single string or RegExp, convert to array and add our packages
+        config.ssr.noExternal = [config.ssr.noExternal, ...packagesToInclude]
+      }
+    })
+
+    // Configure Nitro for server-side bundling
+    nuxt.hook('nitro:config', (nitroConfig) => {
+      nitroConfig.externals = nitroConfig.externals || {}
+      nitroConfig.externals.inline = nitroConfig.externals.inline || []
+      nitroConfig.externals.inline.push('tseep', '@nostr-dev-kit/ndk')
+    })
+
+    // Build transpilation (you already had this)
+    nuxt.options.build.transpile = nuxt.options.build.transpile || []
+    nuxt.options.build.transpile.push('tseep', '@nostr-dev-kit/ndk')
+
     // Expose runtime config to plugin
     nuxt.options.runtimeConfig.public.nuxstrComments = defu(nuxt.options.runtimeConfig.public.nuxstrComments || {}, options)
 

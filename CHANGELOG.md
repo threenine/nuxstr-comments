@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.1.0
+
+[compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.0.15...v1.1.0)
+
+### 🚀 Enhancements
+
+- **composables:** Add `useRequestURL` import to `useNuxstrComments` ([3c6468a](https://github.com/threenine/nuxstr-comments/commit/3c6468a))
+
+### ❤️ Contributors
+
+- Gary Woodfine <lnb0l9dc@duck.com>
+
 ## v1.0.15
 
 [compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.0.14...v1.0.15)

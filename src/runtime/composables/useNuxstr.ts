@@ -43,14 +43,11 @@ export function useNuxstr() {
 
   async function connect() {
     const ndk = initializeNDK()
-    console.log('NDK relays:', ndk.explicitRelayUrls)
-    console.log('NDK connected:', state.isConnected.value)
     if (state.isConnected.value) return ndk
     if (state.isConnecting.value) return ndk
     state.isConnecting.value = true
     try {
       await ndk.connect()
-      console.log('NDK connected:', state.isConnected.value)
       state.isConnected.value = true
       return ndk
     }
@@ -77,10 +74,6 @@ export function useNuxstr() {
       const user = await signer.user()
       state.signer = signer
       state.pubkey.value = user.pubkey
-      const poo = ndk.getUser({ pubkey: user.pubkey })
-      console.log(poo)
-      await poo.fetchProfile()
-      console.log(poo)
       await connect()
     }
   }

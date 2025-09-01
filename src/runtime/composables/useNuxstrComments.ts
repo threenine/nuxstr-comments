@@ -27,6 +27,11 @@ export function useNuxstrComments(customContentId?: string) {
     const prefix = opts.tagPrefix || 'comment:'
     return `${prefix}${contentId.value}`
   }
+  function siteUrl(): string {
+    const url = useRequestURL()
+    return `${url.protocol}//${url.host}`
+
+  }
 
   async function fetchProfile(pubkey: string): Promise<NuxstrProfile | undefined> {
     try {
@@ -55,8 +60,9 @@ export function useNuxstrComments(customContentId?: string) {
   async function getEventsByTag(tag: string): Promise<NDKEvent[]> {
     try {
       await connect()
-      const filter: NDKFilter = { kinds: [NDKKind.GenericReply], ['#t']: [tag], limit: 30 }
+      const filter: NDKFilter = { kinds: [NDKKind.GenericReply], ['#t']: [tag], limit: 30, ['#k']: [siteUrl()] }
       const events = await ndk.fetchEvents(filter)
+      console.log('events', events)
       return Array.from(events)
     }
     catch (error) {
@@ -103,6 +109,7 @@ export function useNuxstrComments(customContentId?: string) {
     e.content = comment
     e.tags = [
       ['t', tagValue()],
+      ['k', siteUrl()],
     ]
     const ok = await e.publish().then(() => true).catch((err: unknown) => {
       error.value = (err as Error)?.message || String(err)

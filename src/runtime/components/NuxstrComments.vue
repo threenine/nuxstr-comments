@@ -52,7 +52,7 @@ async function handlePost() {
       <div
         v-for="c in comments"
         :key="c.id"
-        class="rounded border p-3 mt-2"
+        class="rounded border p-3 mt-2 mb-2"
       >
         <div class="flex items-center gap-3 mb-3 mt-2">
           <div
@@ -72,7 +72,7 @@ async function handlePost() {
             </div>
           </div>
         </div>
-        <div class="prose prose-sm prose-invert mt-2">
+        <div class="prose prose-sm prose-invert mt-2 mb-2">
           <!-- eslint-disable-next-line vue/no-v-html -->
           <div v-html="marked.parse(c.content)" />
           <!-- eslint-disable-next-line vue/no-v-html -->
@@ -81,7 +81,7 @@ async function handlePost() {
 
       <div
         v-if="isLoggedIn"
-        class="space-y-2"
+        class="space-y-2 mt-5"
       >
         <UTextarea
           v-model="comment"

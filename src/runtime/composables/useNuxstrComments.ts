@@ -1,8 +1,8 @@
-import {computed, ref} from 'vue'
-import {useRoute, useRuntimeConfig} from '#imports'
-import {useNuxstr} from './useNuxstr'
-import {NDKEvent, type NDKFilter, NDKKind} from '@nostr-dev-kit/ndk'
-import type {NuxstrComment, NuxstrProfile} from '~/src/runtime/types'
+import { computed, ref } from 'vue'
+import { useRoute, useRuntimeConfig } from '#imports'
+import { useNuxstr } from './useNuxstr'
+import { NDKEvent, type NDKFilter, NDKKind } from '@nostr-dev-kit/ndk'
+import type { NuxstrComment, NuxstrProfile } from '~/src/runtime/types'
 
 export function useNuxstrComments(customContentId?: string) {
   const { ndk, connect, isLoggedIn } = useNuxstr()
@@ -55,7 +55,7 @@ export function useNuxstrComments(customContentId?: string) {
   async function getEventsByTag(tag: string): Promise<NDKEvent[]> {
     try {
       await connect()
-      const filter: NDKFilter = { kinds: [NDKKind.GenericReply], ['#t']: [tag] , limit: 30}
+      const filter: NDKFilter = { kinds: [NDKKind.GenericReply], ['#t']: [tag], limit: 30 }
       const events = await ndk.fetchEvents(filter)
       return Array.from(events)
     }
@@ -68,7 +68,6 @@ export function useNuxstrComments(customContentId?: string) {
     loading.value = true
     error.value = null
     try {
-
       const events = await getEventsByTag(tagValue())
       const list = Array.from(events).sort((a, b) => (a.created_at || 0) - (b.created_at || 0))
 

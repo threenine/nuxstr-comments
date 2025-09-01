@@ -77,7 +77,7 @@ export function useNuxstr() {
       const user = await signer.user()
       state.signer = signer
       state.pubkey.value = user.pubkey
-      let poo = ndk.getUser({pubkey: user.pubkey})
+      const poo = ndk.getUser({ pubkey: user.pubkey })
       console.log(poo)
       await poo.fetchProfile()
       console.log(poo)

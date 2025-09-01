@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v1.0.15
+
+[compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.0.14...v1.0.15)
+
+### 💅 Refactors
+
+- **components, composables:** Improve styling and simplify connection logic ([7846fbd](https://github.com/threenine/nuxstr-comments/commit/7846fbd))
+
+### 🎨 Styles
+
+- **composables:** Remove unnecessary line break in `useNuxstrComments` ([efe748b](https://github.com/threenine/nuxstr-comments/commit/efe748b))
+
+### ❤️ Contributors
+
+- Gary Woodfine <lnb0l9dc@duck.com>
+
 ## v1.0.14
 
 [compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.0.13...v1.0.14)

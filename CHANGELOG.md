@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v1.0.14
+
+[compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.0.13...v1.0.14)
+
+### 🏡 Chore
+
+- **release:** V1.0.13 ([7e28270](https://github.com/threenine/nuxstr-comments/commit/7e28270))
+- **module:** Add `nostr-tools` and `defu` to Vite and Nitro configurations ([5d04931](https://github.com/threenine/nuxstr-comments/commit/5d04931))
+
+### 🎨 Styles
+
+- **composables:** Apply consistent formatting and cleanup in `useNuxstr` and `useNuxstrComments` ([92d1a53](https://github.com/threenine/nuxstr-comments/commit/92d1a53))
+
+### ❤️ Contributors
+
+- Gary Woodfine <lnb0l9dc@duck.com>
+
 ## v1.0.13
 
 [compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.0.12...v1.0.13)

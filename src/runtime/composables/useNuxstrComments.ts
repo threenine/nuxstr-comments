@@ -1,5 +1,5 @@
 import { computed, ref } from 'vue'
-import { useRoute, useRuntimeConfig } from '#imports'
+import { useRoute, useRuntimeConfig, useRequestURL } from '#imports'
 import { useNuxstr } from './useNuxstr'
 import { NDKEvent, type NDKFilter, NDKKind } from '@nostr-dev-kit/ndk'
 import type { NuxstrComment, NuxstrProfile } from '~/src/runtime/types'

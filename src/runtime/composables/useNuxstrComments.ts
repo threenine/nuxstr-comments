@@ -30,7 +30,6 @@ export function useNuxstrComments(customContentId?: string) {
   function siteUrl(): string {
     const url = useRequestURL()
     return `${url.protocol}//${url.host}`
-
   }
 
   async function fetchProfile(pubkey: string): Promise<NuxstrProfile | undefined> {

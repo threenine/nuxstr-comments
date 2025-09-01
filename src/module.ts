@@ -15,7 +15,7 @@ export default defineNuxtModule<ModuleOptions>({
   },
   // Default configuration options of the Nuxt module
   defaults: {
-    relays: ['wss://relay.damus.io', 'wss://relay.nostr.band', 'wss://nos.lol'],
+    relays: ['wss://relay.damus.io', 'wss://relay.nostr.band', 'wss://relay.primal.net'],
     tagStrategy: 'path',
     tagPrefix: 'comment:',
   },
@@ -29,13 +29,13 @@ export default defineNuxtModule<ModuleOptions>({
       config.optimizeDeps.include = config.optimizeDeps.include || []
 
       // Pre-bundle these packages for better ESM/CJS interop
-      config.optimizeDeps.include.push('tseep', '@nostr-dev-kit/ndk')
+      config.optimizeDeps.include.push('tseep', '@nostr-dev-kit/ndk', 'nostr-tools', 'defu')
 
       // For SSR, don't externalize these packages
       config.ssr = config.ssr || {}
 
       // Handle the noExternal property correctly based on its current type
-      const packagesToInclude = ['tseep', '@nostr-dev-kit/ndk']
+      const packagesToInclude = ['tseep', '@nostr-dev-kit/ndk', 'nostr-tools', 'defu']
 
       if (!config.ssr.noExternal) {
         config.ssr.noExternal = packagesToInclude
@@ -57,12 +57,12 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.hook('nitro:config', (nitroConfig) => {
       nitroConfig.externals = nitroConfig.externals || {}
       nitroConfig.externals.inline = nitroConfig.externals.inline || []
-      nitroConfig.externals.inline.push('tseep', '@nostr-dev-kit/ndk')
+      nitroConfig.externals.inline.push('tseep', '@nostr-dev-kit/ndk', 'nostr-tools', 'defu')
     })
 
     // Build transpilation (you already had this)
     nuxt.options.build.transpile = nuxt.options.build.transpile || []
-    nuxt.options.build.transpile.push('tseep', '@nostr-dev-kit/ndk')
+    nuxt.options.build.transpile.push('tseep', '@nostr-dev-kit/ndk', 'nostr-tools', 'defu')
 
     // Expose runtime config to plugin
     nuxt.options.runtimeConfig.public.nuxstrComments = defu(nuxt.options.runtimeConfig.public.nuxstrComments || {}, options)

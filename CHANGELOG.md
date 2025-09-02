@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v1.2.1
+
+[compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.2.0...v1.2.1)
+
+### 💅 Refactors
+
+- **components:** Improve comment handling logic and validation ([b00c1e3](https://github.com/threenine/nuxstr-comments/commit/b00c1e3))
+
+### 🏡 Chore
+
+- **components:** Remove redundant empty lines in `NuxstrComments.vue` and `PostComment.vue` ([1686736](https://github.com/threenine/nuxstr-comments/commit/1686736))
+
+### ❤️ Contributors
+
+- Gary Woodfine <lnb0l9dc@duck.com>
+
 ## v1.2.0
 
 [compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.1.1...v1.2.0)

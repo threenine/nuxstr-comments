@@ -65,10 +65,10 @@ onMounted(() => {
                 v-if="c.profile?.image"
                 class="flex-shrink-0"
               >
-                <UAvatar
+                <img
                   :src="c.profile.image"
                   :alt="c.profile.name || c.profile.display_name || 'User avatar'"
-                  class="w-8 h-8 rounded-full object-cover"
+                  class="w-6 h-6 rounded-full object-cover"
                 />
               </div>
               <div class="flex-1 min-w-0">

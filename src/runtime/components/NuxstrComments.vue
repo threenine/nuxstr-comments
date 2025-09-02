@@ -4,7 +4,6 @@ import { useNuxstr } from '../composables/useNuxstr'
 import { useNuxstrComments } from '../composables/useNuxstrComments'
 import { marked } from 'marked'
 
-
 const props = defineProps<{ contentId?: string }>()
 
 const { login, isLoggedIn } = useNuxstr()

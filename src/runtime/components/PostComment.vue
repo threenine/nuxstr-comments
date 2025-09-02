@@ -26,7 +26,6 @@ async function handlePost() {
     clearComment()
   }
 }
-
 </script>
 
 <template>

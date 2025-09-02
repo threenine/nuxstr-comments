@@ -41,53 +41,60 @@ onMounted(() => {
     >
       <PostComment :content-id="contentId" />
     </div>
-    <div
-      v-if="loading"
-      class="text-sm"
-    >
-      Loading comments…
-    </div>
 
-    <div
-      v-else
-      class="space-y-6"
-    >
+    <div class="space-y-4">
       <div
-        v-for="c in comments"
-        :key="c.id"
-        class="rounded border p-3 mt-2 mb-2"
+        v-if="loading"
+        >
+        <Scaffold />
+      </div>
+      <div
+        v-else
+        class="space-y-6"
       >
-        <div class="flex items-center gap-3 mb-3 mt-2">
-          <div
-            v-if="c.profile?.image"
-            class="flex-shrink-0"
-          >
-            <UAvatar
-              :src="c.profile.image"
-              :alt="c.profile.name || c.profile.display_name || 'User avatar'"
-              class="w-8 h-8 rounded-full object-cover"
-            />
-          </div>
-          <div class="flex-1 min-w-0">
-            <div class="truncate">
-              {{ c.profile?.display_name || c.profile?.name || `${c.pubkey.slice(0, 8)}…` }}
-              <span class="text-xs">{{ new Date(c.created_at * 1000).toLocaleString() }}</span>
+        <div
+          v-for="c in comments"
+          :key="c.id"
+          class="rounded border p-3 mt-2 mb-2"
+        >
+          <div class="flex items-center gap-3 mb-3 mt-2">
+            <div
+              v-if="c.profile?.image"
+              class="flex-shrink-0"
+            >
+              <UAvatar
+                :src="c.profile.image"
+                :alt="c.profile.name || c.profile.display_name || 'User avatar'"
+                class="w-8 h-8 rounded-full object-cover"
+              />
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="truncate">
+                {{ c.profile?.display_name || c.profile?.name || `${c.pubkey.slice(0, 8)}…` }}
+                <span class="text-xs">{{ new Date(c.created_at * 1000).toLocaleString() }}</span>
+              </div>
             </div>
           </div>
+          <div class="prose prose-sm prose-invert mt-2 mb-2">
+            <!-- eslint-disable-next-line vue/no-v-html -->
+            <div v-html="marked.parse(c.content)" />
+            <!-- eslint-disable-next-line vue/no-v-html -->
+          </div>
         </div>
-        <div class="prose prose-sm prose-invert mt-2 mb-2">
-          <!-- eslint-disable-next-line vue/no-v-html -->
-          <div v-html="marked.parse(c.content)" />
-          <!-- eslint-disable-next-line vue/no-v-html -->
-        </div>
-      </div>
 
-      <div
-        v-if="isLoggedIn"
-        class=" mt-5"
-      />
+        <div
+          v-if="isLoggedIn"
+          class=" mt-5"
+        />
+      </div>
     </div>
-  </div>
+    </div>
+
+
+
+
+
+
 </template>
 
 <style scoped>

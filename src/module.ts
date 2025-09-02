@@ -85,5 +85,9 @@ export default defineNuxtModule<ModuleOptions>({
       name: 'PostComment',
       filePath: resolver.resolve('./runtime/components/PostComment.vue'),
     })
+    addComponent({
+      name: 'Scaffold',
+      filePath: resolver.resolve('./runtime/components/Scaffold.vue'),
+    })
   },
 })

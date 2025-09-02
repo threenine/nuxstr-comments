@@ -4,6 +4,6 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
   compatibilityDate: '2025-08-19',
   nuxstrComments: {
-    relays: ['wss://frens.nostr1.com',  'wss://purplerelay.com'],
+    relays: ['wss://frens.nostr1.com', 'wss://purplerelay.com'],
   },
 })

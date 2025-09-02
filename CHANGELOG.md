@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v1.2.2
+
+[compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.2.1...v1.2.2)
+
+### 💅 Refactors
+
+- **components:** Wrap comment sections in `ClientOnly` for improved SSR compatibility ([d6bd62d](https://github.com/threenine/nuxstr-comments/commit/d6bd62d))
+- **components:** Wrap comment sections in `ClientOnly` for improved SSR compatibility ([0cfa4c6](https://github.com/threenine/nuxstr-comments/commit/0cfa4c6))
+
+### ❤️ Contributors
+
+- Gary Woodfine <lnb0l9dc@duck.com>
+
 ## v1.2.1
 
 [compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.2.0...v1.2.1)

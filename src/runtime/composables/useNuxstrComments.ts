@@ -2,7 +2,7 @@ import { computed, ref } from 'vue'
 import { useRoute, useRuntimeConfig, useRequestURL } from '#imports'
 import { useNuxstr } from './useNuxstr'
 import { NDKEvent, type NDKFilter, NDKKind } from '@nostr-dev-kit/ndk'
-import type { NuxstrComment, NuxstrProfile } from '~/src/runtime/types'
+import type { Comment, Profile } from '~/src/runtime/types'
 
 export function useNuxstrComments(customContentId?: string) {
   const { ndk, connect, isLoggedIn } = useNuxstr()
@@ -15,7 +15,7 @@ export function useNuxstrComments(customContentId?: string) {
 
   const loading = ref(false)
   const error = ref<string | null>(null)
-  const comments = ref<NuxstrComment[]>([])
+  const comments = ref<Comment[]>([])
 
   const contentId = computed(() => {
     if (customContentId) return customContentId
@@ -32,26 +32,23 @@ export function useNuxstrComments(customContentId?: string) {
     return `${url.protocol}//${url.host}`
   }
 
-  async function fetchProfile(pubkey: string): Promise<NuxstrProfile | undefined> {
+  async function fetchProfile(pubkey: string): Promise<Profile | undefined> {
     try {
-      const filter: NDKFilter = { kinds: [0], authors: [pubkey] }
-      const events = await ndk.fetchEvents(filter)
-      const latestEvent = Array.from(events)
-        .sort((a, b) => (b.created_at || 0) - (a.created_at || 0))[0]
-
-      if (!latestEvent?.content) return undefined
-
-      const profileData = JSON.parse(latestEvent.content)
+      const user = ndk.getUser({ pubkey: pubkey })
+      const profile = await user.fetchProfile()
       return {
-        name: profileData.name,
-        display_name: profileData.display_name,
-        about: profileData.about,
-        picture: profileData.picture,
-        nip05: profileData.nip05,
+        pubkey,
+        display_name: profile.displayName,
+        about: profile.about,
+        image: profile.picture,
+        nip05: profile.nip05,
+        lud06: profile.lud06,
+        lud16: profile.lud16,
+        website: profile.website,
       }
     }
     catch (error) {
-      console.warn('Failed to fetch profile for', pubkey, error)
+      console.error('Failed to fetch profile for', pubkey, error)
       return undefined
     }
   }

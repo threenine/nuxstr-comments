@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { useNuxstr } from '../composables/useNuxstr'
 import { useNuxstrComments } from '../composables/useNuxstrComments'
 import { marked } from 'marked'
@@ -7,18 +7,11 @@ import { marked } from 'marked'
 const props = defineProps<{ contentId?: string }>()
 
 const { login, isLoggedIn } = useNuxstr()
-const { comments, fetchComments, postComment, loading } = useNuxstrComments(props.contentId)
+const { comments, fetchComments, loading } = useNuxstrComments(props.contentId)
 
-const comment = ref('')
 onMounted(() => {
   fetchComments()
 })
-
-async function handlePost() {
-  if (!comment.value.trim()) return
-  const ok = await postComment(comment.value)
-  if (ok) comment.value = ''
-}
 </script>
 
 <template>
@@ -27,17 +20,27 @@ async function handlePost() {
       <h3 class="text-lg font-semibold">
         Comments
       </h3>
-      <UButton
-        v-if="!isLoggedIn"
-        color="primary"
-        variant="solid"
-        leading-icon="game-icons:ostrich"
-        @click="login"
-      >
-        Login
-      </UButton>
-    </div>
 
+      <div
+        v-if="!isLoggedIn"
+        class="text-sm text-muted-foreground"
+      >
+        <UButton
+          color="primary"
+          variant="solid"
+          leading-icon="game-icons:ostrich"
+          @click="login"
+        >
+          Login
+        </UButton>
+      </div>
+    </div>
+    <div
+      v-if="isLoggedIn"
+      class="text-sm text-muted-foreground"
+    >
+      <PostComment :content-id="contentId" />
+    </div>
     <div
       v-if="loading"
       class="text-sm"
@@ -56,11 +59,11 @@ async function handlePost() {
       >
         <div class="flex items-center gap-3 mb-3 mt-2">
           <div
-            v-if="c.profile?.picture"
+            v-if="c.profile?.image"
             class="flex-shrink-0"
           >
             <UAvatar
-              :src="c.profile.picture"
+              :src="c.profile.image"
               :alt="c.profile.name || c.profile.display_name || 'User avatar'"
               class="w-8 h-8 rounded-full object-cover"
             />
@@ -81,25 +84,8 @@ async function handlePost() {
 
       <div
         v-if="isLoggedIn"
-        class="space-y-2 mt-5"
-      >
-        <UTextarea
-          v-model="comment"
-          class="w-full"
-          placeholder="Write a comment ...."
-          :rows="4"
-        />
-        <div class="flex justify-end">
-          <UButton
-            color="primary"
-            variant="solid"
-            :disabled="!comment.trim()"
-            @click="handlePost"
-          >
-            Post Comment
-          </UButton>
-        </div>
-      </div>
+        class=" mt-5"
+      />
     </div>
   </div>
 </template>

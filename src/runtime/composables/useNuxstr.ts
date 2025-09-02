@@ -2,6 +2,7 @@ import { computed, ref } from 'vue'
 import { useRuntimeConfig } from '#imports'
 import NDK, { NDKNip07Signer } from '@nostr-dev-kit/ndk'
 import { useToast } from '#ui/composables/useToast'
+import type { Profile } from '../types'
 
 export function useNuxstr() {
   // Singleton per client
@@ -16,6 +17,7 @@ export function useNuxstr() {
       pubkey: ref<string | null>(null),
       isConnecting: ref(false),
       isConnected: ref(false),
+      userProfile: ref<Profile>(null),
     }
   }
 
@@ -25,6 +27,7 @@ export function useNuxstr() {
     pubkey: ReturnType<typeof ref<string | null>>
     isConnecting: ReturnType<typeof ref<boolean>>
     isConnected: ReturnType<typeof ref<boolean>>
+    userProfile: ReturnType<typeof ref<Profile | null>>
   }
 
   const config = useRuntimeConfig()
@@ -75,9 +78,26 @@ export function useNuxstr() {
       state.signer = signer
       state.pubkey.value = user.pubkey
       await connect()
+      const profile = ndk.getUser({ pubkey: user.pubkey })
+      profile.fetchProfile().then((profile) => {
+        state.userProile = mapProfile(profile)
+      }).catch((err) => {
+        console.error('Failed to fetch profile', err)
+      })
     }
   }
 
+  function mapProfile(profile: NDKUserProfile): Profile {
+    return <Profile> {
+      display_name: profile.displayName,
+      about: profile.about,
+      image: profile.picture,
+      nip05: profile.nip05,
+      lud06: profile.lud06,
+      lud16: profile.lud16,
+      website: profile.website,
+    }
+  }
   function logout(): void {
     state.signer = null
     state.pubkey.value = null

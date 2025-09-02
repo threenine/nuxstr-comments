@@ -45,11 +45,10 @@ export function useNuxstrComments(customContentId?: string) {
   }
 
   async function subscribeComments() {
-  await connect()
+    await connect()
     const filter: NDKFilter = { kinds: [NDKKind.GenericReply], ['#t']: [tagValue()], limit: 100, ['#k']: [siteUrl()] }
     const sub = await ndk.subscribe(filter)
     sub.on('event', async (event) => {
-
       const comment = mapComment(event)
 
       comment.profile = await fetchProfile(event.pubkey)
@@ -66,12 +65,10 @@ export function useNuxstrComments(customContentId?: string) {
       ['t', tagValue()],
       ['k', siteUrl()],
     ]
-   return await e.publish().then(() => true).catch((err: unknown) => {
+    return await e.publish().then(() => true).catch((err: unknown) => {
       error.value = (err as Error)?.message || String(err)
       return false
     })
-
-
   }
 
   return { loading, error, comments, isLoggedIn, subscribeComments, postComment }

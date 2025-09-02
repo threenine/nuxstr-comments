@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue'
 import { useRuntimeConfig } from '#imports'
-import NDK, {type NDKEvent, NDKNip07Signer} from '@nostr-dev-kit/ndk'
+import NDK, { type NDKEvent, NDKNip07Signer } from '@nostr-dev-kit/ndk'
 import { useToast } from '#ui/composables/useToast'
 import type { Profile, Comment } from '../types'
 
@@ -86,7 +86,7 @@ export function useNuxstr() {
       })
     }
   }
-function mapComment(event: NDKEvent): Comment {
+  function mapComment(event: NDKEvent): Comment {
     return <Comment> {
       id: event.id,
       pubkey: event.pubkey,
@@ -94,7 +94,7 @@ function mapComment(event: NDKEvent): Comment {
       content: event.content,
       profile: null,
     }
-}
+  }
   function mapProfile(profile: NDKUserProfile): Profile {
     return <Profile> {
       display_name: profile.displayName,
@@ -119,6 +119,6 @@ function mapComment(event: NDKEvent): Comment {
     isLoggedIn,
     pubkey: state.pubkey,
     mapProfile,
-    mapComment
+    mapComment,
   }
 }

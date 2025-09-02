@@ -10,7 +10,7 @@ const { login, isLoggedIn } = useNuxstr()
 const { comments, subscribeComments, loading } = useNuxstrComments(props.contentId)
 
 onMounted(() => {
- subscribeComments()
+  subscribeComments()
 })
 </script>
 
@@ -45,8 +45,8 @@ onMounted(() => {
     <div class="space-y-4">
       <div
         v-if="loading"
-        >
-        <Scaffold />
+      >
+        <ScaffoldComment />
       </div>
       <div
         v-else
@@ -88,13 +88,7 @@ onMounted(() => {
         />
       </div>
     </div>
-    </div>
-
-
-
-
-
-
+  </div>
 </template>
 
 <style scoped>

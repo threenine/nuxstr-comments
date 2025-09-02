@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v1.2.0
+
+[compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.1.1...v1.2.0)
+
+### 🚀 Enhancements
+
+- **components:** Introduce `Scaffold` component for skeleton loading ([b15a5d7](https://github.com/threenine/nuxstr-comments/commit/b15a5d7))
+
+### 💅 Refactors
+
+- **components, composables:** Modularize comment posting and enhance profile handling ([e5fbf0e](https://github.com/threenine/nuxstr-comments/commit/e5fbf0e))
+- **composables, components:** Replace `fetchComments` with `subscribeComments` ([5c248b7](https://github.com/threenine/nuxstr-comments/commit/5c248b7))
+- **components, composables:** Rename `Scaffold` to `ScaffoldComment` and improve formatting ([0c68218](https://github.com/threenine/nuxstr-comments/commit/0c68218))
+
+### ❤️ Contributors
+
+- Gary Woodfine <lnb0l9dc@duck.com>
+
 ## v1.1.1
 
 [compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.1.0...v1.1.1)

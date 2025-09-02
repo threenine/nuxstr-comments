@@ -14,7 +14,7 @@ Find and replace all on all files (CMD+SHIFT+F):
 [![License][license-src]][license-href]
 [![Nuxt][nuxt-src]][nuxt-href]
 
-Nuxstr Comments for doing amazing things.
+Nuxstr Comments to add nostr-based comments to your Nuxt Content blog posts.
 
 - [✨ &nbsp;Release Notes](/CHANGELOG.md)
 <!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/@threenine/nuxstr-comments?file=playground%2Fapp.vue) -->

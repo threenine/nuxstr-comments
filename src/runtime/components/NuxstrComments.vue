@@ -17,9 +17,9 @@ onMounted(() => {
 <template>
   <div class="nuxstr-comments space-y-4">
     <div class="flex items-center justify-between">
-      <h3 class="text-lg font-semibold">
+      <span class="text-lg font-semibold text-primary">
         Comments
-      </h3>
+      </span>
 
       <div
         v-if="!isLoggedIn"
@@ -31,7 +31,7 @@ onMounted(() => {
           leading-icon="game-icons:ostrich"
           @click="login"
         >
-          Login
+          Sign in
         </UButton>
       </div>
     </div>
@@ -96,7 +96,5 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.nuxstr-comments :deep(pre) {
-  white-space: pre-wrap;
-}
+
 </style>

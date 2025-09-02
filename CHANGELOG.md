@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.2.3
+
+[compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.2.2...v1.2.3)
+
+### 💅 Refactors
+
+- **components:** Replace `UAvatar` with `img` for profile avatars in `NuxstrComments.vue` ([21f199c](https://github.com/threenine/nuxstr-comments/commit/21f199c))
+
+### ❤️ Contributors
+
+- Gary Woodfine <lnb0l9dc@duck.com>
+
 ## v1.2.2
 
 [compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.2.1...v1.2.2)

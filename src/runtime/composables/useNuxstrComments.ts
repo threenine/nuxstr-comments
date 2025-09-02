@@ -2,10 +2,10 @@ import { computed, ref } from 'vue'
 import { useRoute, useRuntimeConfig, useRequestURL } from '#imports'
 import { useNuxstr } from './useNuxstr'
 import { NDKEvent, type NDKFilter, NDKKind } from '@nostr-dev-kit/ndk'
-import type { NuxstrComment, NuxstrProfile } from '~/src/runtime/types'
+import type { Comment, Profile } from '~/src/runtime/types'
 
 export function useNuxstrComments(customContentId?: string) {
-  const { ndk, connect, isLoggedIn } = useNuxstr()
+  const { ndk, connect, isLoggedIn, mapProfile, mapComment } = useNuxstr()
   const route = useRoute()
   const config = useRuntimeConfig()
   const opts = (config.public?.nuxstrComments || {}) as {
@@ -15,7 +15,7 @@ export function useNuxstrComments(customContentId?: string) {
 
   const loading = ref(false)
   const error = ref<string | null>(null)
-  const comments = ref<NuxstrComment[]>([])
+  const comments = ref<Comment[]>([])
 
   const contentId = computed(() => {
     if (customContentId) return customContentId
@@ -32,73 +32,28 @@ export function useNuxstrComments(customContentId?: string) {
     return `${url.protocol}//${url.host}`
   }
 
-  async function fetchProfile(pubkey: string): Promise<NuxstrProfile | undefined> {
+  async function fetchProfile(pubkey: string): Promise<Profile | undefined> {
     try {
-      const filter: NDKFilter = { kinds: [0], authors: [pubkey] }
-      const events = await ndk.fetchEvents(filter)
-      const latestEvent = Array.from(events)
-        .sort((a, b) => (b.created_at || 0) - (a.created_at || 0))[0]
-
-      if (!latestEvent?.content) return undefined
-
-      const profileData = JSON.parse(latestEvent.content)
-      return {
-        name: profileData.name,
-        display_name: profileData.display_name,
-        about: profileData.about,
-        picture: profileData.picture,
-        nip05: profileData.nip05,
-      }
+      const user = ndk.getUser({ pubkey: pubkey })
+      const profile = await user.fetchProfile()
+      return mapProfile(profile)
     }
     catch (error) {
-      console.warn('Failed to fetch profile for', pubkey, error)
+      console.error('Failed to fetch profile for', pubkey, error)
       return undefined
     }
   }
 
-  async function getEventsByTag(tag: string): Promise<NDKEvent[]> {
-    try {
-      await connect()
-      const filter: NDKFilter = { kinds: [NDKKind.GenericReply], ['#t']: [tag], limit: 30, ['#k']: [siteUrl()] }
-      const events = await ndk.fetchEvents(filter)
-      console.log('events', events)
-      return Array.from(events)
-    }
-    catch (error) {
-      console.warn('Failed to fetch events by tag', tag, error)
-      return []
-    }
-  }
-  async function fetchComments() {
-    loading.value = true
-    error.value = null
-    try {
-      const events = await getEventsByTag(tagValue())
-      const list = Array.from(events).sort((a, b) => (a.created_at || 0) - (b.created_at || 0))
+  async function subscribeComments() {
+    await connect()
+    const filter: NDKFilter = { kinds: [NDKKind.GenericReply], ['#t']: [tagValue()], limit: 100, ['#k']: [siteUrl()] }
+    const sub = await ndk.subscribe(filter)
+    sub.on('event', async (event) => {
+      const comment = mapComment(event)
 
-      // Fetch profiles for all unique pubkeys
-      const pubkeys = [...new Set(list.map(e => e.pubkey))]
-      const profilePromises = pubkeys.map(async (pubkey) => {
-        const profile = await fetchProfile(pubkey)
-        return { pubkey, profile }
-      })
-      const profileResults = await Promise.all(profilePromises)
-      const profileMap = new Map(profileResults.map(r => [r.pubkey, r.profile]))
-
-      comments.value = list.map(e => ({
-        id: e.id,
-        pubkey: e.pubkey,
-        created_at: e.created_at || 0,
-        content: e.content,
-        profile: profileMap.get(e.pubkey),
-      }))
-    }
-    catch (e: unknown) {
-      error.value = (e as Error)?.message || String(e)
-    }
-    finally {
-      loading.value = false
-    }
+      comment.profile = await fetchProfile(event.pubkey)
+      comments.value.push(comment)
+    })
   }
 
   async function postComment(comment: string) {
@@ -110,15 +65,11 @@ export function useNuxstrComments(customContentId?: string) {
       ['t', tagValue()],
       ['k', siteUrl()],
     ]
-    const ok = await e.publish().then(() => true).catch((err: unknown) => {
+    return await e.publish().then(() => true).catch((err: unknown) => {
       error.value = (err as Error)?.message || String(err)
       return false
     })
-    if (ok) {
-      await fetchComments()
-    }
-    return ok
   }
 
-  return { loading, error, comments, isLoggedIn, fetchComments, postComment }
+  return { loading, error, comments, isLoggedIn, subscribeComments, postComment }
 }

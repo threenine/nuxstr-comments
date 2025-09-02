@@ -7,10 +7,10 @@ import { marked } from 'marked'
 const props = defineProps<{ contentId?: string }>()
 
 const { login, isLoggedIn } = useNuxstr()
-const { comments, fetchComments, loading } = useNuxstrComments(props.contentId)
+const { comments, subscribeComments, loading } = useNuxstrComments(props.contentId)
 
 onMounted(() => {
-  fetchComments()
+ subscribeComments()
 })
 </script>
 

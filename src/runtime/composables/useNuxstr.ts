@@ -1,8 +1,8 @@
 import { computed, ref } from 'vue'
 import { useRuntimeConfig } from '#imports'
-import NDK, { NDKNip07Signer } from '@nostr-dev-kit/ndk'
+import NDK, {type NDKEvent, NDKNip07Signer} from '@nostr-dev-kit/ndk'
 import { useToast } from '#ui/composables/useToast'
-import type { Profile } from '../types'
+import type { Profile, Comment } from '../types'
 
 export function useNuxstr() {
   // Singleton per client
@@ -86,7 +86,15 @@ export function useNuxstr() {
       })
     }
   }
-
+function mapComment(event: NDKEvent): Comment {
+    return <Comment> {
+      id: event.id,
+      pubkey: event.pubkey,
+      created_at: event.created_at || 0,
+      content: event.content,
+      profile: null,
+    }
+}
   function mapProfile(profile: NDKUserProfile): Profile {
     return <Profile> {
       display_name: profile.displayName,
@@ -110,5 +118,7 @@ export function useNuxstr() {
     logout,
     isLoggedIn,
     pubkey: state.pubkey,
+    mapProfile,
+    mapComment
   }
 }

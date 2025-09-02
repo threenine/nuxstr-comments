@@ -35,19 +35,22 @@ onMounted(() => {
         </UButton>
       </div>
     </div>
+    <ClientOnly>
     <div
       v-if="isLoggedIn"
       class="text-sm text-muted-foreground"
     >
       <PostComment :content-id="contentId" />
     </div>
-
+    </ClientOnly>
+    <ClientOnly>
     <div class="space-y-4">
       <div
         v-if="loading"
       >
         <ScaffoldComment />
       </div>
+
       <div
         v-else
         class="space-y-6"
@@ -87,7 +90,9 @@ onMounted(() => {
           class=" mt-5"
         />
       </div>
+
     </div>
+    </ClientOnly>
   </div>
 </template>
 

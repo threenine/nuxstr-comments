@@ -1,15 +1,32 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 import { useNuxstrComments } from '../composables/useNuxstrComments'
 
 const props = defineProps<{ contentId?: string }>()
 
+const EMPTY_COMMENT = ''
+
 const { postComment } = useNuxstrComments(props.contentId)
-const comment = ref('')
-async function handlePost() {
-  if (!comment.value.trim()) return
-  const ok = await postComment(comment.value)
-  if (ok) comment.value = ''
+const comment = ref(EMPTY_COMMENT)
+
+function isValidComment(commentText: string): boolean {
+  return commentText.trim().length > 0
 }
+
+function clearComment(): void {
+  comment.value = EMPTY_COMMENT
+}
+
+async function handlePost() {
+  if (!isValidComment(comment.value)) return
+
+  const wasPosted = await postComment(comment.value)
+  if (wasPosted) {
+    clearComment()
+  }
+}
+
 </script>
 
 <template>

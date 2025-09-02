@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v1.1.1
+
+[compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.1.0...v1.1.1)
+
+### 🏡 Chore
+
+- **config:** Update default and playground `relays` lists for improved connectivity ([8fd1b09](https://github.com/threenine/nuxstr-comments/commit/8fd1b09))
+- **config:** Update default and playground `relays` lists for improved connectivity ([a78b04c](https://github.com/threenine/nuxstr-comments/commit/a78b04c))
+
+### ❤️ Contributors
+
+- Gary Woodfine <lnb0l9dc@duck.com>
+
 ## v1.1.0
 
 [compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.0.15...v1.1.0)

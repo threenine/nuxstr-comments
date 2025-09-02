@@ -15,7 +15,7 @@ export default defineNuxtModule<ModuleOptions>({
   },
   // Default configuration options of the Nuxt module
   defaults: {
-    relays: ['wss://relay.damus.io', 'wss://relay.nostr.band', 'wss://relay.primal.net'],
+    relays: ['wss://relay.damus.io',  'wss://relay.primal.net', 'wss://a.nos.lol', 'wss://freelay.sovbit.host', 'wss://nos.lol', 'wss://nostr.dodge.me.uk'],
     tagStrategy: 'path',
     tagPrefix: 'comment:',
   },

@@ -14,7 +14,7 @@ Find and replace all on all files (CMD+SHIFT+F):
 [![License][license-src]][license-href]
 [![Nuxt][nuxt-src]][nuxt-href]
 
-Nuxstr Comments to add nostr-based comments to your Nuxt Content blog posts.
+Enable [nostr protocol](https://nostr.com/) based comment system on your Nuxt 4 based applications.
 
 - [✨ &nbsp;Release Notes](/CHANGELOG.md)
 <!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/@threenine/nuxstr-comments?file=playground%2Fapp.vue) -->

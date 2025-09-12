@@ -3,6 +3,7 @@
 <template>
   <div>
     Page: another-page
+    <nuxstr-comments />
   </div>
 </template>
 

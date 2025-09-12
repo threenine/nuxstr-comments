@@ -92,6 +92,7 @@ onMounted(() => {
         </div>
       </div>
     </ClientOnly>
+    <client-only></client-only>
   </div>
 </template>
 

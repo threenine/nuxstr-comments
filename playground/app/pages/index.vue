@@ -2,10 +2,13 @@
 </script>
 
 <template>
-  <nuxt-layout name="default">
-  <h1>Playground</h1>
-  <p>Index Page</p> <nuxt-link to="another-page" class="text-primary"> Another Page</nuxt-link>
- <NuxstrComments />
+  <nuxt-layout name="default-layout">
+    <h1>Playground</h1>
+    <p>Index Page</p> <nuxt-link
+      to="another-page"
+      class="text-primary"
+    > Another Page</nuxt-link>
+    <NuxstrComments />
   </nuxt-layout>
 </template>
 

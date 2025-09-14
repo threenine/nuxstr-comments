@@ -2,9 +2,9 @@
 
 <template>
   <div>
-   <UContainer>
-    <slot />
-   </UContainer>
+    <UContainer>
+      <slot />
+    </UContainer>
   </div>
 </template>
 

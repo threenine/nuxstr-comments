@@ -11,10 +11,14 @@ export default createConfigForNuxt({
   },
   dirs: {
     src: [
-      './playground',
+      './src',
     ],
   },
 })
   .append(
+    {
+      ignores: ['playground/**/*'],
+
+    },
     // your custom flat config here...
   )

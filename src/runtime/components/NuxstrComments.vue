@@ -62,7 +62,10 @@ onMounted(() => {
               :profile="c.profile"
               :created-at="c.created_at"
             />
-            <comment-view :content="c.content" :id="c.id" />
+            <comment-view
+              :id="c.id"
+              :content="c.content"
+            />
           </div>
 
           <div

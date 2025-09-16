@@ -15,7 +15,7 @@ export default defineNuxtModule<ModuleOptions>({
   },
   // Default configuration options of the Nuxt module
   defaults: {
-    relays: ['wss://relay.damus.io', 'wss://relay.primal.net', 'wss://a.nos.lol', 'wss://freelay.sovbit.host', 'wss://nos.lol', 'wss://nostr.dodge.me.uk'],
+    relays: ['wss://relay.damus.io', 'wss://relay.primal.net'],
     tagStrategy: 'path',
     tagPrefix: 'comment:',
   },
@@ -100,6 +100,11 @@ export default defineNuxtModule<ModuleOptions>({
     addComponent({
       name: 'CommentAuthor',
       filePath: resolver.resolve('./runtime/components/CommentAuthor.vue'),
+    })
+
+    addComponent({
+      name: 'PostReply',
+      filePath: resolver.resolve('./runtime/components/PostReply.vue'),
     })
   },
 })

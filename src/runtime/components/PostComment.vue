@@ -19,12 +19,7 @@ function clearComment(): void {
 }
 
 async function handlePost() {
-  if (!isValidComment(comment.value)) return
 
-  const wasPosted = await postComment(comment.value)
-  if (wasPosted) {
-    clearComment()
-  }
 }
 </script>
 
@@ -41,8 +36,8 @@ async function handlePost() {
         color="primary"
         variant="solid"
         :disabled="!comment.trim()"
-        @click="handlePost"
         class="mb-4"
+        @click="handlePost"
       >
         Post Comment
       </UButton>

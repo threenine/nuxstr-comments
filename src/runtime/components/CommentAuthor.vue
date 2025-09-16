@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
-  profile: Profile,
+  profile: Profile
   createdAt: number
 }>()
 </script>

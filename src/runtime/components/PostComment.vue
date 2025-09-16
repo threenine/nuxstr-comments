@@ -32,7 +32,7 @@ async function handlePost() {
   <div class="text-sm text-muted-foreground border border-green mt-16">
     <UTextarea
       v-model="comment"
-      class="w-full"
+      class="w-full mb-4"
       placeholder="Write a comment ...."
       :rows="4"
     />
@@ -42,6 +42,7 @@ async function handlePost() {
         variant="solid"
         :disabled="!comment.trim()"
         @click="handlePost"
+        class="mb-4"
       >
         Post Comment
       </UButton>

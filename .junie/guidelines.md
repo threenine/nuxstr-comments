@@ -1,4 +1,15 @@
 
+## 1. Organize Project Structure
+
+* Follow a domain-driven or feature-based structure rather than organizing by technical layers
+* Keep related functionality together to improve code discoverability
+* Use a consistent naming convention for packages and files
+
+## 2. Effective Testing
+
+* Write unit tests for business logic
+* Use Go's testing package and testify for assertions
+* Implement integration tests for critical paths
 
 # Frontend
 * Nuxt 4.0
@@ -10,7 +21,7 @@
 # Backend
 * vue
 * Typescript
-* nostr*tools
+* nostr-tools
 * NDK
 
 # Unit Test
@@ -19,22 +30,4 @@
 # package manager
 * pnpm 
 
-async function parseCommentContent(content: string) {
-try {
-const parsed = await parseMarkdown(content)
-return parsed
-}
-catch {
-// If parsing fails, return a simple text node structure
-return {
-type: 'root',
-children: [
-{
-type: 'element',
-tag: 'p',
-children: [{ type: 'text', value: content }],
-},
-],
-}
-}
-}
+

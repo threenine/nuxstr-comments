@@ -79,12 +79,14 @@ export function useNuxstr() {
       state.pubkey.value = user.pubkey
       await connect()
       const profile = ndk.getUser({ pubkey: user.pubkey })
-      profile.fetchProfile().then((profile) => {
-        state.userProile = mapProfile(profile)
-      }).catch((err) => {
-        console.error('Failed to fetch profile', err)
-      })
+
+      state.userProfile.value = mapProfile(profile)
     }
+  }
+  async function getProfile(): Promise<Profile> {
+     console.log("getProfile", state.userProfile.value )
+
+    return state.userProfile.value
   }
   function mapComment(event: NDKEvent): Comment {
     return <Comment> {
@@ -96,6 +98,7 @@ export function useNuxstr() {
     }
   }
   function mapProfile(profile: NDKUserProfile): Profile {
+    console.log("profile", profile)
     return <Profile> {
       display_name: profile.displayName,
       about: profile.about,
@@ -119,6 +122,6 @@ export function useNuxstr() {
     isLoggedIn,
     pubkey: state.pubkey,
     mapProfile,
-    mapComment,
+    mapComment
   }
 }

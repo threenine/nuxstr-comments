@@ -5,7 +5,7 @@ import { NDKEvent, type NDKFilter, NDKKind } from '@nostr-dev-kit/ndk'
 import type { Comment, Profile } from '~/src/runtime/types'
 
 export function useNuxstrComments(customContentId?: string) {
-  const { ndk, connect, isLoggedIn, mapProfile, mapComment } = useNuxstr()
+  const { ndk, connect, isLoggedIn, mapProfile, mapComment, getProfile, pubkey } = useNuxstr()
   const route = useRoute()
   const config = useRuntimeConfig()
   const opts = (config.public?.nuxstrComments || {}) as {
@@ -32,6 +32,9 @@ export function useNuxstrComments(customContentId?: string) {
     return `${url.protocol}//${url.host}`
   }
 
+  function fullUrl(path: string): string {
+   return `${siteUrl()}${path}`
+  }
   async function fetchProfile(pubkey: string): Promise<Profile | undefined> {
     try {
       const user = ndk.getUser({ pubkey: pubkey })
@@ -46,11 +49,10 @@ export function useNuxstrComments(customContentId?: string) {
 
   async function subscribeComments() {
     await connect()
-    const filter: NDKFilter = { kinds: [NDKKind.GenericReply], ['#t']: [tagValue()], limit: 100, ['#k']: [siteUrl()] }
+    const filter: NDKFilter = { kinds: [NDKKind.GenericReply], ['#t']: [tagValue()], limit: 100, ['#k']: ['web'], ['#A']: [fullUrl(contentId.value)] }
     const sub = await ndk.subscribe(filter)
     sub.on('event', async (event) => {
       const comment = mapComment(event)
-
       comment.profile = await fetchProfile(event.pubkey)
       comments.value.push(comment)
     })
@@ -58,17 +60,34 @@ export function useNuxstrComments(customContentId?: string) {
 
   async function postComment(comment: string) {
     await connect()
-    const e = new NDKEvent(ndk)
-    e.kind = NDKKind.GenericReply
-    e.content = comment
-    e.tags = [
-      ['t', tagValue()],
-      ['k', siteUrl()],
-    ]
-    return await e.publish().then(() => true).catch((err: unknown) => {
+    const ndkEvent = await createCommentEvent(comment)
+    return await ndkEvent.publish().then(() => true).catch((err: unknown) => {
       error.value = (err as Error)?.message || String(err)
       return false
     })
+  }
+
+  // Create a comment reply event as defined in NIP 22
+  async function createReplyEvent(comment : string, rootId: string):Promise<NDKEvent> {
+
+  }
+
+  /// Create a new comment event as defined in NIP 22
+  async function createCommentEvent(comment: string) :Promise<NDKEvent> {
+    const event = new NDKEvent(ndk)
+    event.kind = NDKKind.GenericReply
+    event.content = comment
+    event.tags = [
+      ['A', fullUrl(contentId.value) ],
+      ['a', fullUrl(contentId.value) ],
+      ['I', fullUrl(contentId.value) ],  //
+      ['i', fullUrl(contentId.value)],
+      ['t', tagValue()],
+      ['k', "web" ],     // Defined NIP 73
+      ['K', "web" ],     // Defined NIP 73,
+      ['p', pubkey.value ],
+    ]
+    return event
   }
 
   return { loading, error, comments, isLoggedIn, subscribeComments, postComment }

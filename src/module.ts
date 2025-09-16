@@ -93,17 +93,13 @@ export default defineNuxtModule<ModuleOptions>({
       name: 'CommentCommandBar',
       filePath: resolver.resolve('./runtime/components/CommentCommandBar.vue'),
     })
-
     addComponent({
       name: 'CommentView',
       filePath: resolver.resolve('./runtime/components/CommentView.vue'),
     })
-
     addComponent({
       name: 'CommentAuthor',
       filePath: resolver.resolve('./runtime/components/CommentAuthor.vue'),
     })
-
-
   },
 })

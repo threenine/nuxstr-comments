@@ -3,10 +3,7 @@ import { onMounted } from 'vue'
 import { useNuxstr } from '../composables/useNuxstr'
 import { useNuxstrComments } from '../composables/useNuxstrComments'
 
-
-
 const props = defineProps<{ contentId?: string }>()
-
 const { login, isLoggedIn } = useNuxstr()
 const { comments, subscribeComments, loading } = useNuxstrComments(props.contentId)
 
@@ -49,7 +46,7 @@ onMounted(() => {
         <div
           v-if="loading"
         >
-          <ScaffoldComment />
+          <scaffold-comment />
         </div>
 
         <div
@@ -61,11 +58,11 @@ onMounted(() => {
             :key="c.id"
             class="rounded border border-gray-900 p-3 mt-2 mb-2"
           >
-            <comment-author :profile="c.profile" :created-at="c.created_at" />
-            <CommentView :content="c.content" />
-
-
-
+            <comment-author
+              :profile="c.profile"
+              :created-at="c.created_at"
+            />
+            <comment-view :content="c.content" :id="c.id" />
           </div>
 
           <div

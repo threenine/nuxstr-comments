@@ -7,14 +7,15 @@ export function useReplies(rootCommentId?: string) {
   const { ndk, connect, mapComment, pubkey, fetchProfile } = useNuxstr()
   const repliesData = ref<Comment[]>([])
   const error = ref<string | null>(null)
+
   const replies = computed(() => {
     return repliesData.value.slice().sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())
   })
 
-  async function subscribeReplies() {
+  async function subscribeReplies(): Promise<void> {
     await connect()
     const filter: NDKFilter = { kinds: [NDKKind.GenericReply], limit: 100, ['#e']: [rootCommentId] }
-    const sub = await ndk.subscribe(filter)
+    const sub: NDKSubscription = await ndk.subscribe(filter)
     sub.on('event', async (event) => {
       const reply = mapComment(event)
       reply.profile = await fetchProfile(event.pubkey)
@@ -22,10 +23,9 @@ export function useReplies(rootCommentId?: string) {
     })
   }
 
-  async function reply(comment: string) {
+  async function reply(comment: string): Promise<boolean> {
     const ndkEvent = await createReplyEvent(comment)
     return await ndkEvent.publish().then(() => true).catch((err: unknown) => {
-      console.log('reply error', err)
       error.value = (err as Error)?.message || String(err)
       return false
     })
@@ -33,7 +33,6 @@ export function useReplies(rootCommentId?: string) {
 
   // Create a comment reply event as defined in NIP 22
   async function createReplyEvent(comment: string): Promise<NDKEvent> {
-    console.log('createReplyEvent', comment, rootCommentId)
     const event = new NDKEvent(ndk)
     event.kind = NDKKind.GenericReply
     event.content = comment
@@ -42,9 +41,20 @@ export function useReplies(rootCommentId?: string) {
       ['k', `${NDKKind.GenericReply}`], // The parent kind
       ['p', pubkey.value],
     ]
-    console.log('createReplyEvent', event)
     return event
   }
+  const count = computed(async () => {
+    await connect()
+    const filter: NDKFilter = { kinds: [NDKKind.GenericReply], limit: 100, ['#e']: [rootCommentId] }
+    const events = await ndk.fetchEvents(filter)
 
-  return { subscribeReplies, replies: replies, reply }
+    console.log(events)
+    return `${Array.from(events).length}`
+  })
+
+  /*  async function count(): Promise<number> {
+
+  } */
+
+  return { subscribeReplies, replies: replies, reply, count }
 }

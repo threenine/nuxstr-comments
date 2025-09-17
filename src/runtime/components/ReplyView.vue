@@ -1,19 +1,11 @@
 <script setup lang="ts">
-import { useReplies } from '../composables/useReplies'
-import { onMounted } from 'vue'
-
-const props = defineProps<{ rootId: string }>()
-const { replies, subscribeReplies } = useReplies(props.rootId)
-
-onMounted(() => {
-  subscribeReplies()
-})
+const props = defineProps<{ replies: Comment[] }>()
 </script>
 
 <template>
   <div class="px-10 py-4">
     <div
-      v-for="reply in replies"
+      v-for="reply in props.replies"
       :key="reply.id"
       class="rounded border border-gray-900 p-3 mt-2 mb-2"
     >

@@ -1,6 +1,35 @@
 # Changelog
 
 
+## v1.3.0
+
+[compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.2.3...v1.3.0)
+
+### 🚀 Enhancements
+
+- **components:** Add `CommentCommandBar` and update `NuxstrComments` ([602e7dd](https://github.com/threenine/nuxstr-comments/commit/602e7dd))
+- **components:** Add `CommentAuthor` and `CommentView` components, refactor `NuxstrComments` ([68b3132](https://github.com/threenine/nuxstr-comments/commit/68b3132))
+- **comments:** Add reply functionality, enhance command bar, and improve component integration ([163fd55](https://github.com/threenine/nuxstr-comments/commit/163fd55))
+- **comments:** Enhance reply functionality and refactor components ([8edd011](https://github.com/threenine/nuxstr-comments/commit/8edd011))
+- **comments:** Refactor comments and replies handling, introduce new components ([07cba76](https://github.com/threenine/nuxstr-comments/commit/07cba76))
+- **comments:** Refactor comments and replies handling, introduce new components ([6ee7039](https://github.com/threenine/nuxstr-comments/commit/6ee7039))
+- **comments:** Integrate reply counting and enhance UI for `CommentCommandBar` ([7a32527](https://github.com/threenine/nuxstr-comments/commit/7a32527))
+
+### 💅 Refactors
+
+- **components:** Update `NuxstrComments` styles and text for improved consistency ([65409af](https://github.com/threenine/nuxstr-comments/commit/65409af))
+- **app:** Restructure playground with dedicated pages and layout ([f956d2c](https://github.com/threenine/nuxstr-comments/commit/f956d2c))
+
+### 📖 Documentation
+
+- **README:** Add support section with donation links ([e11bcfb](https://github.com/threenine/nuxstr-comments/commit/e11bcfb))
+- **README:** Update support section and add FUNDING.yml ([f7ebb1a](https://github.com/threenine/nuxstr-comments/commit/f7ebb1a))
+- **README:** Update description for Nostr support ([a7fb8e3](https://github.com/threenine/nuxstr-comments/commit/a7fb8e3))
+
+### ❤️ Contributors
+
+- Gary Woodfine <lnb0l9dc@duck.com>
+
 ## v1.2.3
 
 [compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.2.2...v1.2.3)

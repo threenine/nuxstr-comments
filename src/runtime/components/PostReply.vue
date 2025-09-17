@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useReplies } from '../composables/useReplies'
-import {  ref } from 'vue'
+import { ref } from 'vue'
+
 const props = defineProps<{ rootId: string }>()
 const { reply } = useReplies(props.rootId)
 const EMPTY_COMMENT = ''

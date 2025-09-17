@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useNuxstr } from '../composables/useNuxstr'
-import { useNuxstrComments } from '../composables/useNuxstrComments'
+import { useComments } from '../composables/useComments'
 
 const props = defineProps<{ contentId?: string }>()
 const { login, isLoggedIn } = useNuxstr()
-const { comments, subscribeComments, loading } = useNuxstrComments(props.contentId)
+const { comments, subscribeComments, loading } = useComments(props.contentId)
 
 onMounted(() => {
   subscribeComments()
@@ -53,7 +53,10 @@ onMounted(() => {
           v-else
           class="space-y-6"
         >
-          <div
+          <div v-if="comments.length === 0">
+            <scaffold-comment />
+          </div>
+          <div v-else
             v-for="c in comments"
             :key="c.id"
             class="rounded border border-gray-900 p-3 mt-2 mb-2"

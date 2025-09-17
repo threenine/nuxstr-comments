@@ -4,9 +4,10 @@ import { useNuxstr } from './useNuxstr'
 import { NDKEvent, type NDKFilter, NDKKind } from '@nostr-dev-kit/ndk'
 import type { Comment, Profile } from '~/src/runtime/types'
 
-export function useNuxstrComments(customContentId?: string) {
-  const { ndk, connect, isLoggedIn, mapProfile, mapComment, pubkey } = useNuxstr()
+export function useComments(customContentId?: string) {
+  const { ndk, connect, isLoggedIn, mapProfile, mapComment, pubkey, fetchProfile } = useNuxstr()
   const route = useRoute()
+
   const config = useRuntimeConfig()
   const opts = (config.public?.nuxstrComments || {}) as {
     tagStrategy?: 'path' | 'id' | 'custom'
@@ -35,17 +36,7 @@ export function useNuxstrComments(customContentId?: string) {
   function fullUrl(path: string): string {
     return `${siteUrl()}${path}`
   }
-  async function fetchProfile(pubkey: string): Promise<Profile | undefined> {
-    try {
-      const user = ndk.getUser({ pubkey: pubkey })
-      const profile = await user.fetchProfile()
-      return mapProfile(profile)
-    }
-    catch (error) {
-      console.error('Failed to fetch profile for', pubkey, error)
-      return undefined
-    }
-  }
+
 
   async function subscribeComments() {
     await connect()
@@ -67,7 +58,7 @@ export function useNuxstrComments(customContentId?: string) {
     })
   }
 
-  async function replyComment(comment: string, rootId: string) {
+ /* async function replyComment(comment: string, rootId: string) {
    console.log('replyComment', comment, rootId)
     await connect()
     const ndkEvent = await createReplyEvent(comment, rootId)
@@ -83,16 +74,11 @@ export function useNuxstrComments(customContentId?: string) {
     event.content = comment
     event.tags = [
       ['e', rootId],
-      ['a', fullUrl(contentId.value)],
-      ['I', fullUrl(contentId.value)], //
-      ['i', fullUrl(contentId.value)],
-      ['t', tagValue()],
-      ['k', 'web'], // Defined NIP 73
-      ['K', 'web'], // Defined NIP 73,
+      ['k', NDKKind.GenericReply ], // The parent kind
       ['p', pubkey.value],
     ]
     return event
-  }
+  }*/
 
   /// Create a new comment event as defined in NIP 22
   async function createCommentEvent(comment: string): Promise<NDKEvent> {
@@ -112,5 +98,5 @@ export function useNuxstrComments(customContentId?: string) {
     return event
   }
 
-  return { loading, error, comments, isLoggedIn, subscribeComments, postComment, replyComment }
+  return { loading, error, comments, isLoggedIn, subscribeComments, postComment }
 }

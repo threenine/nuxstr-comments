@@ -1,25 +1,21 @@
 <script setup lang="ts">
-import { useNuxstrComments } from '../composables/useNuxstrComments'
+import { useReplies } from '../composables/useReplies'
 
-const props = defineProps<{ contentId: string }>()
-
-
-
+const props = defineProps<{ rootId: string }>()
+const { reply } = useReplies(props.rootId)
 const EMPTY_COMMENT = ''
-const { replyComment } = useNuxstrComments(props.contentId)
-console.log(props.contentId)
-const reply = ref(EMPTY_COMMENT)
+const content = ref(EMPTY_COMMENT)
 function isValidComment(commentText: string): boolean {
   return commentText.trim().length > 0
 }
 function clearComment(): void {
-  reply.value = EMPTY_COMMENT
+  content.value = EMPTY_COMMENT
 }
 
 async function postReply(comment: string) {
-  if (!isValidComment(reply.value)) return
+  if (!isValidComment(content.value)) return
 
-  const wasPosted = await replyComment(reply.value, props.contentId)
+  const wasPosted = await reply(content.value)
   if (wasPosted) {
     clearComment()
   }
@@ -27,22 +23,27 @@ async function postReply(comment: string) {
 </script>
 
 <template>
-  <div class="text-sm text-muted-foreground border border-neutral mt-16 p-6">
+  <div class="text-sm text-muted-foreground  mt-16 p-6">
+    <div class="flex gap-2">
+      <div class="flex-1">
     <UTextarea
-      v-model="reply"
-      class="w-full mb-4"
+      v-model="content"
+      class="w-full mb-4 rounded-xl"
       placeholder="Write a reply to this comment ...."
       :rows="4"
     />
-    <div class="flex justify-end">
+      </div>
+      <div class="flex flex-col justify-center items-center p-2">
       <UButton
+        icon="mingcute:send-line"
+        size="xl"
         color="primary"
         variant="solid"
         class="mb-4 mr-2"
-        @click="postReply(repy)"
+        @click="postReply(content)"
       >
-        Reply
       </UButton>
+    </div>
     </div>
   </div>
 </template>

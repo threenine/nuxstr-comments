@@ -1,8 +1,8 @@
-import { computed, ref } from 'vue'
-import { useRuntimeConfig } from '#imports'
-import NDK, { type NDKEvent, NDKNip07Signer } from '@nostr-dev-kit/ndk'
-import { useToast } from '#ui/composables/useToast'
-import type { Profile, Comment } from '../types'
+import {computed, ref} from 'vue'
+import {useRequestURL, useRuntimeConfig} from '#imports'
+import NDK, {type NDKEvent, NDKNip07Signer} from '@nostr-dev-kit/ndk'
+import {useToast} from '#ui/composables/useToast'
+import type {Comment, Profile} from '../types'
 
 export function useNuxstr() {
   // Singleton per client
@@ -36,12 +36,21 @@ export function useNuxstr() {
   }
 
   function initializeNDK() {
+
     if (!state.ndk) {
-      state.ndk = new NDK({ explicitRelayUrls: opts.relays || [] })
+      state.ndk = new NDK({
+        explicitRelayUrls: opts.relays || [],
+
+      })
     }
     return state.ndk
   }
 
+  const getClientName = computed(() => {
+    const url = useRequestURL()
+    const hostname = url.hostname.split('.')[0]
+    return `nuxstr-comments-${hostname}`
+  })
   const isLoggedIn = computed(() => !!state.pubkey.value)
 
   async function connect() {
@@ -53,11 +62,11 @@ export function useNuxstr() {
       await ndk.connect()
       state.isConnected.value = true
       return ndk
-    }
-    finally {
+    } finally {
       state.isConnecting.value = false
     }
   }
+
   async function checkExtension(): Promise<boolean> {
     if ('nostr' in window) return true
 
@@ -69,6 +78,7 @@ export function useNuxstr() {
     })
     return false
   }
+
   async function login(): Promise<void> {
     if (await checkExtension()) {
       const ndk = initializeNDK()
@@ -78,14 +88,14 @@ export function useNuxstr() {
       state.signer = signer
       state.pubkey.value = user.pubkey
       await connect()
-      const profile = await ndk.getUser({ pubkey: user.pubkey })
+      const profile = await ndk.getUser({pubkey: user.pubkey})
 
       state.userProfile.value = mapProfile(profile)
     }
   }
 
   function mapComment(event: NDKEvent): Comment {
-    return <Comment> {
+    return <Comment>{
       id: event.id,
       pubkey: event.pubkey,
       created_at: event.created_at || 0,
@@ -93,9 +103,20 @@ export function useNuxstr() {
       profile: null,
     }
   }
+  async function fetchProfile(pubkey: string): Promise<Profile | undefined> {
+    try {
+      const user = state.ndk.getUser({ pubkey: pubkey })
+      const profile = await user.fetchProfile()
+      return mapProfile(profile)
+    }
+    catch (error) {
+      console.error('Failed to fetch profile for', pubkey, error)
+      return undefined
+    }
+  }
   function mapProfile(profile: NDKUserProfile): Profile {
-    console.log('profile', profile)
-    return <Profile> {
+
+    return <Profile>{
       display_name: profile.displayName,
       about: profile.about,
       image: profile.picture,
@@ -105,13 +126,16 @@ export function useNuxstr() {
       website: profile.website,
     }
   }
+
   function logout(): void {
     state.signer = null
     state.pubkey.value = null
   }
 
   return {
-    get ndk() { return initializeNDK() },
+    get ndk() {
+      return initializeNDK()
+    },
     connect,
     login,
     logout,
@@ -119,5 +143,6 @@ export function useNuxstr() {
     pubkey: state.pubkey,
     mapProfile,
     mapComment,
+    fetchProfile
   }
 }

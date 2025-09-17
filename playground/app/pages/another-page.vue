@@ -2,7 +2,7 @@
 
 <template>
   <div>
-    Page: another-page
+    <nuxt-link to="/" class="text-primary">Back</nuxt-link>
     <nuxstr-comments />
   </div>
 </template>

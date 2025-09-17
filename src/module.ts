@@ -15,7 +15,7 @@ export default defineNuxtModule<ModuleOptions>({
   },
   // Default configuration options of the Nuxt module
   defaults: {
-    relays: ['wss://relay.damus.io', 'wss://relay.primal.net'],
+    relays: ['wss://relay.damus.io', 'wss://purplepag.es/'],
     tagStrategy: 'path',
     tagPrefix: 'comment:',
   },
@@ -73,7 +73,8 @@ export default defineNuxtModule<ModuleOptions>({
     // Register composables
     addImports([
       { name: 'useNuxstr', as: 'useNuxstr', from: resolver.resolve('./runtime/composables/useNuxstr') },
-      { name: 'useNuxstrComments', as: 'useNuxstrComments', from: resolver.resolve('./runtime/composables/useNuxstrComments') },
+      { name: 'useComments', as: 'useComments', from: resolver.resolve('./runtime/composables/useComments') },
+      { name: 'useReplies', as: 'useReplies', from: resolver.resolve('./runtime/composables/useReplies') },
     ])
 
     // Register component
@@ -101,10 +102,13 @@ export default defineNuxtModule<ModuleOptions>({
       name: 'CommentAuthor',
       filePath: resolver.resolve('./runtime/components/CommentAuthor.vue'),
     })
-
     addComponent({
       name: 'PostReply',
       filePath: resolver.resolve('./runtime/components/PostReply.vue'),
+    })
+    addComponent({
+      name: 'ReplyView',
+      filePath: resolver.resolve('./runtime/components/ReplyView.vue'),
     })
   },
 })

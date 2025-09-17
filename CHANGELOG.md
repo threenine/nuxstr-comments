@@ -79,7 +79,7 @@
 
 ### 🚀 Enhancements
 
-- **composables:** Add `useRequestURL` import to `useNuxstrComments` ([3c6468a](https://github.com/threenine/nuxstr-comments/commit/3c6468a))
+- **composables:** Add `useRequestURL` import to `useComments` ([3c6468a](https://github.com/threenine/nuxstr-comments/commit/3c6468a))
 
 ### ❤️ Contributors
 
@@ -95,7 +95,7 @@
 
 ### 🎨 Styles
 
-- **composables:** Remove unnecessary line break in `useNuxstrComments` ([efe748b](https://github.com/threenine/nuxstr-comments/commit/efe748b))
+- **composables:** Remove unnecessary line break in `useComments` ([efe748b](https://github.com/threenine/nuxstr-comments/commit/efe748b))
 
 ### ❤️ Contributors
 
@@ -112,7 +112,7 @@
 
 ### 🎨 Styles
 
-- **composables:** Apply consistent formatting and cleanup in `useNuxstr` and `useNuxstrComments` ([92d1a53](https://github.com/threenine/nuxstr-comments/commit/92d1a53))
+- **composables:** Apply consistent formatting and cleanup in `useNuxstr` and `useComments` ([92d1a53](https://github.com/threenine/nuxstr-comments/commit/92d1a53))
 
 ### ❤️ Contributors
 

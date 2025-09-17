@@ -13,12 +13,14 @@ function toggleReply() {
 </script>
 
 <template>
-  <div v-if="isLoggedIn">
-    <USeparator />
+  <div >
+
     <div class="flex items-center gap-4 mx-auto mt-4 mb-4">
       <u-button
         variant="ghost"
         icon="mdi:message-reply-text-outline"
+        title="Reply"
+        square
         @click="toggleReply"
       />
       <!--      <u-button
@@ -42,7 +44,14 @@ function toggleReply() {
       :open
     >
       <template #content>
-       <post-reply :content-id="props.contentId" />
+        <div >
+          <reply-view :root-id="props.contentId" />
+        </div>
+
+        <div v-if="isLoggedIn" class="mt-4">
+          <post-reply :root-id="props.contentId" />
+        </div>
+
       </template>
     </UCollapsible>
   </div>

@@ -13,9 +13,9 @@ function clearComment(): void {
 }
 
 async function postReply(comment: string) {
-  if (!isValidComment(content.value)) return
+  if (!isValidComment(comment)) return
 
-  const wasPosted = await reply(content.value)
+  const wasPosted = await reply(comment)
   if (wasPosted) {
     clearComment()
   }
@@ -26,24 +26,23 @@ async function postReply(comment: string) {
   <div class="text-sm text-muted-foreground  mt-16 p-6">
     <div class="flex gap-2">
       <div class="flex-1">
-    <UTextarea
-      v-model="content"
-      class="w-full mb-4 rounded-xl"
-      placeholder="Write a reply to this comment ...."
-      :rows="4"
-    />
+        <UTextarea
+          v-model="content"
+          class="w-full mb-4 rounded-xl"
+          placeholder="Write a reply to this comment ...."
+          :rows="4"
+        />
       </div>
       <div class="flex flex-col justify-center items-center p-2">
-      <UButton
-        icon="mingcute:send-line"
-        size="xl"
-        color="primary"
-        variant="solid"
-        class="mb-4 mr-2"
-        @click="postReply(content)"
-      >
-      </UButton>
-    </div>
+        <UButton
+          icon="mingcute:send-line"
+          size="xl"
+          color="primary"
+          variant="solid"
+          class="mb-4 mr-2"
+          @click="postReply(content)"
+        />
+      </div>
     </div>
   </div>
 </template>

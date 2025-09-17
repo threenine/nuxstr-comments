@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useNuxstr } from '../composables/useNuxstr'
 
-
 const props = defineProps<{ contentId: string }>()
 const { isLoggedIn } = useNuxstr()
 const open = ref(false)
@@ -9,12 +8,10 @@ const open = ref(false)
 function toggleReply() {
   open.value = !open.value
 }
-
 </script>
 
 <template>
-  <div >
-
+  <div>
     <div class="flex items-center gap-4 mx-auto mt-4 mb-4">
       <u-button
         variant="ghost"
@@ -44,14 +41,16 @@ function toggleReply() {
       :open
     >
       <template #content>
-        <div >
+        <div>
           <reply-view :root-id="props.contentId" />
         </div>
 
-        <div v-if="isLoggedIn" class="mt-4">
+        <div
+          v-if="isLoggedIn"
+          class="mt-4"
+        >
           <post-reply :root-id="props.contentId" />
         </div>
-
       </template>
     </UCollapsible>
   </div>

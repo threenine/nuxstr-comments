@@ -1,8 +1,8 @@
-import {computed, ref} from 'vue'
-import {useRequestURL, useRuntimeConfig} from '#imports'
-import NDK, {type NDKEvent, NDKNip07Signer} from '@nostr-dev-kit/ndk'
-import {useToast} from '#ui/composables/useToast'
-import type {Comment, Profile} from '../types'
+import { computed, ref } from 'vue'
+import { useRuntimeConfig } from '#imports'
+import NDK, { type NDKEvent, NDKNip07Signer } from '@nostr-dev-kit/ndk'
+import { useToast } from '#ui/composables/useToast'
+import type { Comment, Profile } from '../types'
 
 export function useNuxstr() {
   // Singleton per client
@@ -36,7 +36,6 @@ export function useNuxstr() {
   }
 
   function initializeNDK() {
-
     if (!state.ndk) {
       state.ndk = new NDK({
         explicitRelayUrls: opts.relays || [],
@@ -46,11 +45,6 @@ export function useNuxstr() {
     return state.ndk
   }
 
-  const getClientName = computed(() => {
-    const url = useRequestURL()
-    const hostname = url.hostname.split('.')[0]
-    return `nuxstr-comments-${hostname}`
-  })
   const isLoggedIn = computed(() => !!state.pubkey.value)
 
   async function connect() {
@@ -62,7 +56,8 @@ export function useNuxstr() {
       await ndk.connect()
       state.isConnected.value = true
       return ndk
-    } finally {
+    }
+    finally {
       state.isConnecting.value = false
     }
   }
@@ -88,7 +83,7 @@ export function useNuxstr() {
       state.signer = signer
       state.pubkey.value = user.pubkey
       await connect()
-      const profile = await ndk.getUser({pubkey: user.pubkey})
+      const profile = await ndk.getUser({ pubkey: user.pubkey })
 
       state.userProfile.value = mapProfile(profile)
     }
@@ -115,7 +110,6 @@ export function useNuxstr() {
     }
   }
   function mapProfile(profile: NDKUserProfile): Profile {
-
     return <Profile>{
       display_name: profile.displayName,
       about: profile.about,
@@ -143,6 +137,6 @@ export function useNuxstr() {
     pubkey: state.pubkey,
     mapProfile,
     mapComment,
-    fetchProfile
+    fetchProfile,
   }
 }

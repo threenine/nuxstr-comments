@@ -56,8 +56,9 @@ onMounted(() => {
           <div v-if="comments.length === 0">
             <scaffold-comment />
           </div>
-          <div v-else
+          <div
             v-for="c in comments"
+            v-else
             :key="c.id"
             class="rounded border border-gray-900 p-3 mt-2 mb-2"
           >

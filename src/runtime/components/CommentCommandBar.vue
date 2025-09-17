@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useNuxstr } from '../composables/useNuxstr'
 import { useReplies } from '../composables/useReplies'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 const props = defineProps<{ contentId: string }>()
 const { replies, subscribeReplies } = useReplies(props.contentId)

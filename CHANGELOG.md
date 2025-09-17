@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v1.5.0
+
+[compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.4.0...v1.5.0)
+
+### 🚀 Enhancements
+
+- **playground:** Add new pages with nested routes and update navigation links ([6976528](https://github.com/threenine/nuxstr-comments/commit/6976528))
+
+### 🩹 Fixes
+
+- **PostReply:** Remove redundant space in `ref` import ([ea69320](https://github.com/threenine/nuxstr-comments/commit/ea69320))
+
+### ❤️ Contributors
+
+- Gary Woodfine <lnb0l9dc@duck.com>
+
 ## v1.4.0
 
 [compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.3.0...v1.4.0)

@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.4.0
+
+[compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.3.0...v1.4.0)
+
+### 🚀 Enhancements
+
+- **playground:** Enhance `index.vue` with `UContainer` layout ([2ae64ae](https://github.com/threenine/nuxstr-comments/commit/2ae64ae))
+
+### ❤️ Contributors
+
+- Gary Woodfine <lnb0l9dc@duck.com>
+
 ## v1.3.0
 
 [compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.2.3...v1.3.0)

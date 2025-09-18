@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useNuxstr } from '../composables/useNuxstr'
 import { useReplies } from '../composables/useReplies'
-import {computed, onMounted, ref} from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 const props = defineProps<{ contentId: string }>()
 const { replies, subscribeReplies } = useReplies(props.contentId)
@@ -17,7 +17,7 @@ onMounted(() => {
   subscribeReplies()
 })
 
-const showChip = computed(() => replies.value.length > 0 )
+const showChip = computed(() => replies.value.length > 0)
 </script>
 
 <template>

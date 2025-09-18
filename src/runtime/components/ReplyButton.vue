@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useNuxstr } from '../composables/useNuxstr'
 import { useReplies } from '../composables/useReplies'
-import { onMounted, ref } from 'vue'
+import {computed, onMounted, ref} from 'vue'
 
 const props = defineProps<{ contentId: string }>()
 const { replies, subscribeReplies } = useReplies(props.contentId)
@@ -16,12 +16,16 @@ function toggleReply() {
 onMounted(() => {
   subscribeReplies()
 })
+
+const showChip = computed(() => replies.value.length > 0 )
 </script>
 
 <template>
   <div>
     <div class="flex items-center gap-4 mx-auto mt-4 mb-4">
+
       <u-chip
+        :show="showChip"
         :text="replies.length"
         size="3xl"
         inset

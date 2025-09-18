@@ -91,8 +91,8 @@ export default defineNuxtModule<ModuleOptions>({
       filePath: resolver.resolve('./runtime/components/ScaffoldComment.vue'),
     })
     addComponent({
-      name: 'CommentCommandBar',
-      filePath: resolver.resolve('./runtime/components/CommentCommandBar.vue'),
+      name: 'ReplyButton',
+      filePath: resolver.resolve('./runtime/components/ReplyButton.vue'),
     })
     addComponent({
       name: 'CommentView',

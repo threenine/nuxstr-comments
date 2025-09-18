@@ -12,7 +12,7 @@ const props = defineProps<{ content: string, id?: string }>()
       v-html="marked.parse(props.content)"
     />
     <!-- eslint-disable-next-line vue/no-v-html -->
-    <comment-command-bar :content-id="props.id" />
+    <ReplyButton :content-id="props.id" />
   </div>
 </template>
 

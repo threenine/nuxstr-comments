@@ -22,7 +22,7 @@ const showChip = computed(() => replies.value.length > 0)
 
 <template>
   <div>
-    <div class="flex items-center gap-4 mx-auto mt-4 mb-4">
+    <div class="flex items-center gap-4 mx-auto mt-2 mb-1">
       <u-chip
         :show="showChip"
         :text="replies.length"
@@ -30,27 +30,27 @@ const showChip = computed(() => replies.value.length > 0)
         inset
       >
         <u-button
-          variant="ghost"
+          variant="subtle"
           icon="mdi:message-reply-text-outline"
           title="Reply"
-          square
+          color="primary"
           class="rounded-full hover:bg-gray-900"
           @click="toggleReply"
         />
       </u-chip>
     </div>
     <u-collapsible
-      class="flex flex-col gap-2 w-48 p-16"
+      class="flex flex-col gap-2 w-48 p-4"
       :open
     >
       <template #content>
-        <div>
+        <div class="space-y-4">
           <reply-view :replies="replies" />
         </div>
 
         <div
           v-if="isLoggedIn"
-          class="mt-4"
+          class="mt-2"
         >
           <post-reply :root-id="props.contentId" />
         </div>

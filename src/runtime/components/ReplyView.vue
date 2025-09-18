@@ -7,7 +7,7 @@ const props = defineProps<{ replies: Comment[] }>()
     <div
       v-for="reply in props.replies"
       :key="reply.id"
-      class="rounded border border-gray-900 p-3 mt-2 mb-2"
+      class="rounded-md border p-3 mt-2 mb-2"
     >
       <div>
         <comment-author

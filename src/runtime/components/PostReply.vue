@@ -24,7 +24,7 @@ async function postReply(comment: string) {
 </script>
 
 <template>
-  <div class="text-sm text-muted-foreground  mt-16 p-6">
+  <div class="text-sm text-muted-foreground  mt-4 p-6">
     <div class="flex gap-2">
       <div class="flex-1">
         <UTextarea
@@ -34,13 +34,13 @@ async function postReply(comment: string) {
           :rows="4"
         />
       </div>
-      <div class="flex flex-col justify-center items-center p-2">
+      <div class="flex flex-col justify-center items-centerp-2">
         <UButton
           icon="mingcute:send-line"
           size="xl"
           color="primary"
           variant="solid"
-          class="mb-4 mr-2"
+
           @click="postReply(content)"
         />
       </div>

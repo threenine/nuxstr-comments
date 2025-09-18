@@ -5,10 +5,10 @@ const props = defineProps<{ content: string, id?: string }>()
 </script>
 
 <template>
-  <div class="prose prose-sm prose-invert mt-2 mb-2">
+  <div class="mt-2 mb-2">
     <!-- eslint-disable-next-line vue/no-v-html -->
     <div
-      class="mb-4"
+      class="mb-1"
       v-html="marked.parse(props.content)"
     />
     <!-- eslint-disable-next-line vue/no-v-html -->

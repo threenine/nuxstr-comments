@@ -64,12 +64,19 @@ export default defineNuxtConfig({
   nuxstrComments: {
     relays: ['wss://relay.damus.io', 'wss://relay.nostr.band'],
     tagStrategy: 'path',
-    tagPrefix: 'content:',
+    tagPrefix: 'comment:',
   },
 })
 ```
+Select your preferred relays from the list of [relays](https://nostrwat.ch/) and configure the tag strategy and tag prefix.
 
-When a user attempts to post, they will be prompted to log in with their Nostr browser extension (NIP-07). Comments are published as kind:1 notes tagged with a `t` tag containing the content tag (e.g., `content:/blog/my-post`). Rendering of comment bodies uses @nuxt/content's ContentRendererMarkdown component so users can write markdown.
+When a user attempts to post, they will be prompted to log in with their Nostr browser extension [NIP-07](https://github.com/nostr-protocol/nips/blob/master/07.md).
+
+Comments are published as kind: 1111  as defined in [NIP-22](https://github.com/nostr-protocol/nips/blob/master/22.md) 
+notes tagged with a `t` tag containing the content tag (e.g., `comment:/blog/my-post`). 
+
+Replys to comments are enable, and are also published as kind: 1111, as defined in [NIP-22](https://github.com/nostr-protocol/nips/blob/master/22.md)
+
 
 
 ## Contribution

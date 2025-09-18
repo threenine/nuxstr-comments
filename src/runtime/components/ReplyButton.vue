@@ -23,7 +23,6 @@ const showChip = computed(() => replies.value.length > 0 )
 <template>
   <div>
     <div class="flex items-center gap-4 mx-auto mt-4 mb-4">
-
       <u-chip
         :show="showChip"
         :text="replies.length"
@@ -40,7 +39,7 @@ const showChip = computed(() => replies.value.length > 0 )
         />
       </u-chip>
     </div>
-    <UCollapsible
+    <u-collapsible
       class="flex flex-col gap-2 w-48 p-16"
       :open
     >
@@ -56,7 +55,7 @@ const showChip = computed(() => replies.value.length > 0 )
           <post-reply :root-id="props.contentId" />
         </div>
       </template>
-    </UCollapsible>
+    </u-collapsible>
   </div>
 </template>
 

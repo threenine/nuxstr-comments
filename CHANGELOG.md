@@ -1,6 +1,30 @@
 # Changelog
 
 
+## v1.5.1
+
+[compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.5.0...v1.5.1)
+
+### 🩹 Fixes
+
+- **ReplyButton:** Remove extra spaces in imports and computed property ([8bd2dfe](https://github.com/threenine/nuxstr-comments/commit/8bd2dfe))
+
+### 💅 Refactors
+
+- **components:** Rename `CommentCommandBar` to `ReplyButton` and improve reply UI ([1f89445](https://github.com/threenine/nuxstr-comments/commit/1f89445))
+- **components:** Standardize casing in `ReplyButton` template elements ([8726305](https://github.com/threenine/nuxstr-comments/commit/8726305))
+- **components:** Update spacing and styles in reply-related components ([b780258](https://github.com/threenine/nuxstr-comments/commit/b780258))
+- **runtime:** Update imports and typings for improved consistency ([6933618](https://github.com/threenine/nuxstr-comments/commit/6933618))
+- **runtime:** Standardize `useReplies` import and improve type annotations ([68fd2e2](https://github.com/threenine/nuxstr-comments/commit/68fd2e2))
+
+### 📖 Documentation
+
+- **README:** Update comment configuration and tagging details ([73ad389](https://github.com/threenine/nuxstr-comments/commit/73ad389))
+
+### ❤️ Contributors
+
+- Gary Woodfine <lnb0l9dc@duck.com>
+
 ## v1.5.0
 
 [compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.4.0...v1.5.0)

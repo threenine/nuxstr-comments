@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-import { useComments } from '../composables/useComments'
+import useComments from '../composables/useComments'
 
 const props = defineProps<{ contentId?: string }>()
 

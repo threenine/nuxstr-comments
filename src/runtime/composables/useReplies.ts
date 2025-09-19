@@ -1,9 +1,9 @@
 import { computed, ref } from 'vue'
-import { useNuxstr } from './useNuxstr'
-import { NDKEvent, type NDKFilter, NDKKind } from '@nostr-dev-kit/ndk'
+import useNuxstr from './useNuxstr'
+import { NDKEvent, type NDKFilter, NDKKind, type NDKSubscription } from '@nostr-dev-kit/ndk'
 import type { Comment } from '~/src/runtime/types'
 
-export function useReplies(rootCommentId?: string) {
+export function useReplies(rootCommentId: string) {
   const { ndk, connect, mapComment, pubkey, fetchProfile } = useNuxstr()
   const repliesData = ref<Comment[]>([])
   const error = ref<string | null>(null)
@@ -15,7 +15,7 @@ export function useReplies(rootCommentId?: string) {
   async function subscribeReplies(): Promise<void> {
     await connect()
     const filter: NDKFilter = { kinds: [NDKKind.GenericReply], limit: 100, ['#e']: [rootCommentId] }
-    const sub: NDKSubscription = await ndk.subscribe(filter)
+    const sub: NDKSubscription = ndk.subscribe(filter)
     sub.on('event', async (event) => {
       const reply = mapComment(event)
       reply.profile = await fetchProfile(event.pubkey)
@@ -39,7 +39,7 @@ export function useReplies(rootCommentId?: string) {
     event.tags = [
       ['e', `${rootCommentId}`],
       ['k', `${NDKKind.GenericReply}`], // The parent kind
-      ['p', pubkey.value],
+      ['p', pubkey ?? ''],
     ]
     return event
   }
@@ -47,14 +47,8 @@ export function useReplies(rootCommentId?: string) {
     await connect()
     const filter: NDKFilter = { kinds: [NDKKind.GenericReply], limit: 100, ['#e']: [rootCommentId] }
     const events = await ndk.fetchEvents(filter)
-
-    console.log(events)
     return `${Array.from(events).length}`
   })
-
-  /*  async function count(): Promise<number> {
-
-  } */
 
   return { subscribeReplies, replies: replies, reply, count }
 }

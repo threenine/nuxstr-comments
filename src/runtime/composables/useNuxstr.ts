@@ -1,35 +1,36 @@
 import { computed, ref } from 'vue'
 import { useRuntimeConfig } from '#imports'
-import NDK, { type NDKEvent, NDKNip07Signer } from '@nostr-dev-kit/ndk'
+import NDK, { type NDKEvent, NDKNip07Signer, type NDKUserProfile } from '@nostr-dev-kit/ndk'
 import { useToast } from '#ui/composables/useToast'
 import type { Comment, Profile } from '../types'
 
-export function useNuxstr() {
+function useNuxstr() {
   // Singleton per client
   // We attach NDK instance to a module-level variable
   // to avoid multiple connections in HMR/dev.
+  const DEFAULT_PUBKEY = ''
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const w = globalThis as any
   if (!w.__nuxstr) {
     w.__nuxstr = {
       ndk: null as null | NDK,
       signer: null as null | NDKNip07Signer,
-      pubkey: ref<string | null>(null),
+      pubkey: ref<string>(DEFAULT_PUBKEY),
       isConnecting: ref(false),
       isConnected: ref(false),
-      userProfile: ref<Profile>(null),
+      userProfile: ref<Profile>(undefined as unknown as Profile),
     }
   }
 
   const state = w.__nuxstr as {
     ndk: null | NDK
     signer: null | NDKNip07Signer
-    pubkey: ReturnType<typeof ref<string | null>>
+    pubkey: ReturnType<typeof ref<string>>
     isConnecting: ReturnType<typeof ref<boolean>>
     isConnected: ReturnType<typeof ref<boolean>>
     userProfile: ReturnType<typeof ref<Profile | null>>
   }
-
+  const DEFAULT_TIMESTAMP = 0
   const config = useRuntimeConfig()
   const opts = (config.public?.nuxstrComments || {}) as {
     relays?: string[]
@@ -77,30 +78,31 @@ export function useNuxstr() {
   async function login(): Promise<void> {
     if (await checkExtension()) {
       const ndk = initializeNDK()
+      await connect()
       const signer = new NDKNip07Signer()
       ndk.signer = signer
-      const user = await signer.user()
+      const account = await signer.user()
       state.signer = signer
-      state.pubkey.value = user.pubkey
-      await connect()
-      const profile = await ndk.getUser({ pubkey: user.pubkey })
-
+      state.pubkey.value = account.pubkey
+      const user = ndk.getUser({ pubkey: account.pubkey })
+      const profile = await user.fetchProfile()
       state.userProfile.value = mapProfile(profile)
     }
   }
 
   function mapComment(event: NDKEvent): Comment {
-    return <Comment>{
+    return <Comment> {
       id: event.id,
       pubkey: event.pubkey,
-      created_at: event.created_at || 0,
+      created_at: event.created_at || DEFAULT_TIMESTAMP,
       content: event.content,
-      profile: null,
+      profile: undefined,
     }
   }
   async function fetchProfile(pubkey: string): Promise<Profile | undefined> {
     try {
-      const user = state.ndk.getUser({ pubkey: pubkey })
+      const ndk = initializeNDK()
+      const user = ndk.getUser({ pubkey: pubkey })
       const profile = await user.fetchProfile()
       return mapProfile(profile)
     }
@@ -109,7 +111,9 @@ export function useNuxstr() {
       return undefined
     }
   }
-  function mapProfile(profile: NDKUserProfile): Profile {
+  function mapProfile(profile: NDKUserProfile | null): Profile {
+    if (profile === null) return <Profile>{}
+
     return <Profile>{
       display_name: profile.displayName,
       about: profile.about,
@@ -123,7 +127,7 @@ export function useNuxstr() {
 
   function logout(): void {
     state.signer = null
-    state.pubkey.value = null
+    state.pubkey.value = DEFAULT_PUBKEY
   }
 
   return {
@@ -134,9 +138,11 @@ export function useNuxstr() {
     login,
     logout,
     isLoggedIn,
-    pubkey: state.pubkey,
+    pubkey: state.pubkey.value,
     mapProfile,
     mapComment,
     fetchProfile,
   }
 }
+
+export default useNuxstr

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useNuxstr } from '../composables/useNuxstr'
+import useNuxstr from '../composables/useNuxstr'
 import { useReplies } from '../composables/useReplies'
 import { computed, onMounted, ref } from 'vue'
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { useNuxstr } from '../composables/useNuxstr'
-import { useComments } from '../composables/useComments'
+import useNuxstr from '../composables/useNuxstr'
+import useComments from '../composables/useComments'
 
 const props = defineProps<{ contentId?: string }>()
 const { login, isLoggedIn } = useNuxstr()

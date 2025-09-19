@@ -3,7 +3,7 @@ import useNuxstr from './useNuxstr'
 import { NDKEvent, type NDKFilter, NDKKind, type NDKSubscription } from '@nostr-dev-kit/ndk'
 import type { Comment } from '~/src/runtime/types'
 
-export function useReplies(rootCommentId: string) {
+function useReplies(rootCommentId: string) {
   const { ndk, connect, mapComment, pubkey, fetchProfile } = useNuxstr()
   const repliesData = ref<Comment[]>([])
   const error = ref<string | null>(null)
@@ -24,7 +24,7 @@ export function useReplies(rootCommentId: string) {
   }
 
   async function reply(comment: string): Promise<boolean> {
-    const ndkEvent = await createReplyEvent(comment)
+    const ndkEvent: NDKEvent = await createReplyEvent(comment)
     return await ndkEvent.publish().then(() => true).catch((err: unknown) => {
       error.value = (err as Error)?.message || String(err)
       return false
@@ -43,12 +43,7 @@ export function useReplies(rootCommentId: string) {
     ]
     return event
   }
-  const count = computed(async () => {
-    await connect()
-    const filter: NDKFilter = { kinds: [NDKKind.GenericReply], limit: 100, ['#e']: [rootCommentId] }
-    const events = await ndk.fetchEvents(filter)
-    return `${Array.from(events).length}`
-  })
-
-  return { subscribeReplies, replies: replies, reply, count }
+  return { subscribeReplies, replies: replies, reply }
 }
+
+export default useReplies

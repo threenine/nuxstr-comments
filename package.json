@@ -35,7 +35,6 @@
   },
   "dependencies": {
     "@nostr-dev-kit/ndk": "^2.14.33",
-    "@nuxt/content": "^3.7.1",
     "defu": "^6.1.4",
     "marked": "^16.2.1"
   },

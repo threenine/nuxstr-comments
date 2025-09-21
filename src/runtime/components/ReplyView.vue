@@ -14,7 +14,9 @@ const props = defineProps<{ replies: Comment[] }>()
           :profile="reply.profile"
           :created-at="reply.created_at"
         />
-        <p>{{ reply.content }}</p>
+        <p class="p-2 text-base">
+          {{ reply.content }}
+        </p>
       </div>
     </div>
   </div>

@@ -45,8 +45,7 @@ That's it! You can now use Nuxstr Comments in your Nuxt app ✨
 ```vue
 <template>
   <div>
-    <ContentDoc />
-    <NuxstrComments />
+      <NuxstrComments />
   </div>
 </template>
 ```
@@ -58,7 +57,6 @@ By default, the component tags comments by the current route path (e.g., content
 ```ts
 export default defineNuxtConfig({
   modules: [
-    '@nuxt/content',
     '@threenine/nuxstr-comments',
   ],
   nuxstrComments: {
@@ -75,7 +73,7 @@ When a user attempts to post, they will be prompted to log in with their Nostr b
 Comments are published as kind: 1111  as defined in [NIP-22](https://github.com/nostr-protocol/nips/blob/master/22.md) 
 notes tagged with a `t` tag containing the content tag (e.g., `comment:/blog/my-post`). 
 
-Replys to comments are enable, and are also published as kind: 1111, as defined in [NIP-22](https://github.com/nostr-protocol/nips/blob/master/22.md)
+Replys to comments are enabled, and are also published as kind: 1111, as defined in [NIP-22](https://github.com/nostr-protocol/nips/blob/master/22.md)
 
 
 

@@ -1,6 +1,26 @@
 # Changelog
 
 
+## v1.5.2
+
+[compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.5.1...v1.5.2)
+
+### 📖 Documentation
+
+- **README:** Replace npm commands with pnpm equivalents ([60f1f9b](https://github.com/threenine/nuxstr-comments/commit/60f1f9b))
+- **README:** Reorder usage instructions and fix formatting in example code ([282b0c1](https://github.com/threenine/nuxstr-comments/commit/282b0c1))
+
+### 🏡 Chore
+
+- **dependencies:** Update Nuxt dependencies and fix typos in README ([6d81cf8](https://github.com/threenine/nuxstr-comments/commit/6d81cf8))
+- **runtime:** Enhance markdown rendering and style updates in components ([cbd48dc](https://github.com/threenine/nuxstr-comments/commit/cbd48dc))
+- **changelog:** Cleanup historical logs and reformat for initial release ([5f86a6c](https://github.com/threenine/nuxstr-comments/commit/5f86a6c))
+- **dependencies:** Remove `@nuxt/content` and update `nuxt.config.ts` plugins list ([cd420ca](https://github.com/threenine/nuxstr-comments/commit/cd420ca))
+
+### ❤️ Contributors
+
+- Gary Woodfine <lnb0l9dc@duck.com>
+
 ## v1.5.1
 
 [compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.5.0...v1.5.1)

@@ -34,13 +34,12 @@ async function postReply(comment: string) {
           :rows="4"
         />
       </div>
-      <div class="flex flex-col justify-center items-centerp-2">
+      <div class="flex flex-col justify-center items-center p-2">
         <UButton
           icon="mingcute:send-line"
           size="xl"
           color="primary"
           variant="solid"
-
           @click="postReply(content)"
         />
       </div>

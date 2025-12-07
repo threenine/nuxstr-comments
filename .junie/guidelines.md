@@ -8,8 +8,8 @@
 ## 2. Effective Testing
 
 * Write unit tests for business logic
-* Use Go's testing package and testify for assertions
-* Implement integration tests for critical paths
+* create mock objects for external dependencies
+* Implement integration tests for critical paths and edge cases
 
 # Frontend
 * Nuxt 4.0

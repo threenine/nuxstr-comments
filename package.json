@@ -47,7 +47,7 @@
     "@nuxt/schema": "^4.2.1",
     "@nuxt/scripts": "0.11.10",
     "@nuxt/test-utils": "^3.19.2",
-    "@nuxt/ui": "^3.3.3",
+    "@nuxt/ui": "^4.2.1",
     "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/vue": "^8.1.0",
     "@types/node": "latest",

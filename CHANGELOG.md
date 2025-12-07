@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v1.5.3
+
+[compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.5.2...v1.5.3)
+
+### 🏡 Chore
+
+- **runtime & dependencies:** Fix padding typo, enhance UI, and update dependencies ([2098aca](https://github.com/threenine/nuxstr-comments/commit/2098aca))
+- **dependencies:** Update `@nuxt/ui` to `^4.2.1` ([4b90159](https://github.com/threenine/nuxstr-comments/commit/4b90159))
+
+### ❤️ Contributors
+
+- Gary Woodfine <lnb0l9dc@duck.com>
+
 ## v1.5.2
 
 [compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.5.1...v1.5.2)

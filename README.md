@@ -47,12 +47,12 @@ Enable [nostr protocol](https://nostr.com/) based comment system on your Nuxt 4 
 ```
 
 
-> [!TIP]
+> [!WARNING]
 > NuxstrComments [NIP-22] MUST NOT be used to reply to kind 1 notes.  NIP-10 should instead be followed.
 
 
 ## Quick Setup
-
+  
 Install the module to your Nuxt application with one command:
 
 ```bash

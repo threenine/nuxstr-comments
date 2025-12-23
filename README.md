@@ -24,8 +24,32 @@ Enable [nostr protocol](https://nostr.com/) based comment system on your Nuxt 4 
 
 - Nostr-powered comments for Nuxt Content blog posts
 - NIP-07 login prompt if user is not authenticated
-- Comments are written in Markdown and rendered via @nuxt/content's ContentRendererMarkdown
+- [NIP-22](https://github.com/nostr-protocol/nips/blob/master/22.md) Plain Text Content - (no HTML, Markdown, or other formatting)
 - Configurable relay list and tagging strategy
+- Comments are published as kind:1111 as Website Url
+```json
+{
+  "kind": 1111,
+  "content": "Nice article!",
+  "tags": [
+    // referencing the root url
+    ["I", "https://abc.com/articles/1"],
+    // the root "kind": for an url
+    ["K", "web"],
+
+    // the parent reference (same as root for top-level comments)
+    ["i", "https://abc.com/articles/1"],
+    // the parent "kind": for an url
+    ["k", "web"]
+  ]
+  // other fields
+}
+```
+
+
+> [!TIP]
+> NuxstrComments [NIP-22] MUST NOT be used to reply to kind 1 notes.  NIP-10 should instead be followed.
+
 
 ## Quick Setup
 

@@ -23,7 +23,7 @@ Enable [nostr protocol](https://nostr.com/) based comment system on your Nuxt 4 
 ## Features
 
 - Nostr-powered comments for Nuxt Content blog posts
-- NIP-07 login prompt if user is not authenticated
+- [NIP-07](https://github.com/nostr-protocol/nips/blob/master/07.md) Browser Extension login prompt if user is not authenticated
 - [NIP-22](https://github.com/nostr-protocol/nips/blob/master/22.md) Plain Text Content - (no HTML, Markdown, or other formatting)
 - Configurable relay list and tagging strategy
 - Comments are published as kind:1111 as Website Url
@@ -48,7 +48,8 @@ Enable [nostr protocol](https://nostr.com/) based comment system on your Nuxt 4 
 
 
 > [!WARNING]
-> NuxstrComments [NIP-22] MUST NOT be used to reply to kind 1 notes.  NIP-10 should instead be followed.
+> NuxstrComments [NIP-22] MUST NOT be used to reply to kind 1 notes.  
+> NIP-10 should instead be followed.
 
 
 ## Quick Setup

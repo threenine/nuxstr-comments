@@ -46,7 +46,7 @@ async function postReply(comment: string) {
         <UButton
           type="submit"
           color="primary"
-          label="Send"
+          label="Reply"
           icon="i-lucide-send"
           @click="postReply(content)"
         />

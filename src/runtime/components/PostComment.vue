@@ -52,7 +52,7 @@ async function handlePost() {
           <UButton
             type="submit"
             color="primary"
-            label="Send"
+            label="Comment"
             icon="i-lucide-send"
           />
         </div>

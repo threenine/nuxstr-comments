@@ -23,14 +23,16 @@ onMounted(() => {
         v-if="!isLoggedIn"
         class="text-sm text-muted-foreground"
       >
-        <UButton
-          color="primary"
-          variant="solid"
-          leading-icon="game-icons:ostrich"
-          @click="login"
-        >
-          Sign in
-        </UButton>
+        <u-tooltip text="Sign in with NIP07 browser extension like Alby or nos2fx to comment">
+          <UButton
+            color="primary"
+            variant="solid"
+            leading-icon="game-icons:ostrich"
+            @click="login"
+          >
+            Sign in
+          </UButton>
+        </u-tooltip>
       </div>
     </div>
     <ClientOnly>

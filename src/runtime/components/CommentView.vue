@@ -1,25 +1,26 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { marked } from 'marked'
-
-const props = defineProps<{ content: string, id: string }>()
-
-async function renderMarkdown(md: string): Promise<string> {
-  // Marked.parse returns string; keep narrow surface for future changes (e.g., sanitization).
-  return marked.parse(md)
-}
-
-onMounted(async () => {
-  const targetEl = document.getElementById('comment-content')
-  if (!targetEl) return
-  targetEl.innerHTML = await renderMarkdown(props.content)
-})
+defineProps<{ content: string, id: string }>()
 </script>
 
 <template>
   <div class="mt-2 mb-2">
-    <div id="comment-content" />
-    <ReplyButton :content-id="props.id" />
+    <UCard
+      variant="subtle"
+      class="mt-auto"
+      :ui="{ header: 'flex items-center gap-1.5 text-dimmed' }"
+    >
+      <UTextarea
+        :model-value="content"
+        color="neutral"
+        variant="none"
+        autoresize
+        readonly
+        :rows="4"
+        class="w-full"
+        :ui="{ base: 'p-0 resize-none' }"
+      />
+    </ucard>
+    <ReplyButton :content-id="id" />
   </div>
 </template>
 

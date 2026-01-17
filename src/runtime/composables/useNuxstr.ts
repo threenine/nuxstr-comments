@@ -102,9 +102,13 @@ function useNuxstr() {
   async function fetchProfile(pubkey: string): Promise<Profile | undefined> {
     try {
       const ndk = initializeNDK()
-      const user = ndk.getUser({ pubkey: pubkey })
-      const profile = await user.fetchProfile()
-      return mapProfile(profile)
+      const user = await ndk.fetchUser(pubkey)
+      if (user !== null) {
+        const profile = await user?.fetchProfile()
+        if (!profile) return undefined
+        return mapProfile(profile)
+      }
+      return undefined
     }
     catch (error) {
       console.error('Failed to fetch profile for', pubkey, error)

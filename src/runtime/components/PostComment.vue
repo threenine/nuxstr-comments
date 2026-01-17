@@ -29,29 +29,36 @@ async function handlePost() {
 </script>
 
 <template>
-  <div class="text-sm text-muted-foreground border border-green mt-4 p-6">
-    <div class="flex gap-2">
-      <div class="flex-1">
-        <UTextarea
-          v-model="comment"
-          class="w-full mb-4"
-          placeholder="Write a comment ...."
-          :rows="4"
-        />
+  <UCard
+    variant="subtle"
+    class="mt-auto"
+    :ui="{ header: 'flex items-center gap-1.5 text-dimmed' }"
+  >
+    <form @submit.prevent="handlePost">
+      <UTextarea
+        v-model="comment"
+        color="neutral"
+        variant="none"
+        required
+        autoresize
+        placeholder="Write your comment..."
+        :rows="4"
+        class="w-full"
+        :ui="{ base: 'p-0 resize-none' }"
+      />
+
+      <div class="flex items-center justify-end">
+        <div class="flex items-center justify-end gap-2">
+          <UButton
+            type="submit"
+            color="primary"
+            label="Comment"
+            icon="i-lucide-send"
+          />
+        </div>
       </div>
-      <div class="flex flex-col justify-center items-center p-2">
-        <UButton
-          icon="mingcute:send-line"
-          color="primary"
-          variant="solid"
-          :disabled="!comment.trim()"
-          class=""
-          size="xl"
-          @click="handlePost"
-        />
-      </div>
-    </div>
-  </div>
+    </form>
+  </UCard>
 </template>
 
 <style scoped>

@@ -23,14 +23,16 @@ onMounted(() => {
         v-if="!isLoggedIn"
         class="text-sm text-muted-foreground"
       >
-        <UButton
-          color="primary"
-          variant="solid"
-          leading-icon="game-icons:ostrich"
-          @click="login"
-        >
-          Sign in
-        </UButton>
+        <u-tooltip text="Sign in with NIP07 browser extension like Alby or nos2fx to comment">
+          <UButton
+            color="primary"
+            variant="solid"
+            leading-icon="game-icons:ostrich"
+            @click="login"
+          >
+            Sign in
+          </UButton>
+        </u-tooltip>
       </div>
     </div>
     <ClientOnly>
@@ -56,11 +58,13 @@ onMounted(() => {
           <div v-if="comments.length === 0">
             <scaffold-comment />
           </div>
-          <div
+          <UCard
             v-for="c in comments"
             v-else
             :key="c.id"
-            class="rounded border border-gray-900 p-3 mt-2 mb-2"
+            variant="subtle"
+            class="mt-auto"
+            :ui="{ header: 'flex items-center gap-1.5 text-dimmed' }"
           >
             <comment-author
               :profile="c.profile"
@@ -70,7 +74,7 @@ onMounted(() => {
               :id="c.id"
               :content="c.content"
             />
-          </div>
+          </UCard>
 
           <div
             v-if="isLoggedIn"

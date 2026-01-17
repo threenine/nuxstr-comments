@@ -4,10 +4,12 @@ const props = defineProps<{ replies: Comment[] }>()
 
 <template>
   <div class="px-10 py-4">
-    <div
+    <UCard
       v-for="reply in props.replies"
       :key="reply.id"
-      class="rounded-md border p-3 mt-2 mb-2"
+      variant="subtle"
+      class="mt-auto mb-3"
+      :ui="{ header: 'flex items-center gap-1.5 text-dimmed' }"
     >
       <div>
         <comment-author
@@ -18,7 +20,7 @@ const props = defineProps<{ replies: Comment[] }>()
           {{ reply.content }}
         </p>
       </div>
-    </div>
+    </UCard>
   </div>
 </template>
 

@@ -56,11 +56,13 @@ onMounted(() => {
           <div v-if="comments.length === 0">
             <scaffold-comment />
           </div>
-          <div
+          <UCard
             v-for="c in comments"
             v-else
             :key="c.id"
-            class="rounded border border-gray-900 p-3 mt-2 mb-2"
+            variant="subtle"
+            class="mt-auto"
+            :ui="{ header: 'flex items-center gap-1.5 text-dimmed' }"
           >
             <comment-author
               :profile="c.profile"
@@ -70,7 +72,7 @@ onMounted(() => {
               :id="c.id"
               :content="c.content"
             />
-          </div>
+          </UCard>
 
           <div
             v-if="isLoggedIn"

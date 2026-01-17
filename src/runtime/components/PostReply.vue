@@ -40,7 +40,6 @@ async function postReply(comment: string) {
       class="w-full"
       :ui="{ base: 'p-0 resize-none' }"
     />
-
     <div class="flex items-center justify-end">
       <div class="flex items-center justify-end gap-2">
         <UButton
@@ -53,27 +52,6 @@ async function postReply(comment: string) {
       </div>
     </div>
   </UCard>
-<!--  <div class="text-sm text-muted-foreground  mt-4 p-6">
-    <div class="flex gap-2">
-      <div class="flex-1">
-        <UTextarea
-          v-model="content"
-          class="w-full mb-4 rounded-xl"
-          placeholder="Write a reply to this comment ...."
-          :rows="4"
-        />
-      </div>
-      <div class="flex flex-col justify-center items-center p-2">
-        <UButton
-          icon="mingcute:send-line"
-          size="xl"
-          color="primary"
-          variant="solid"
-          @click="postReply(content)"
-        />
-      </div>
-    </div>
-  </div> -->
 </template>
 
 <style scoped>

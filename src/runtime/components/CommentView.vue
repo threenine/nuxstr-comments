@@ -10,6 +10,7 @@ defineProps<{ content: string, id: string }>()
       :ui="{ header: 'flex items-center gap-1.5 text-dimmed' }"
     >
       <UTextarea
+        :model-value="content"
         color="neutral"
         variant="none"
         autoresize
@@ -17,9 +18,7 @@ defineProps<{ content: string, id: string }>()
         :rows="4"
         class="w-full"
         :ui="{ base: 'p-0 resize-none' }"
-      >
-        {{ content }}
-      </UTextarea>
+      />
     </ucard>
     <ReplyButton :content-id="id" />
   </div>

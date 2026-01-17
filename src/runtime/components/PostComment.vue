@@ -29,7 +29,35 @@ async function handlePost() {
 </script>
 
 <template>
-  <div class="text-sm text-muted-foreground border border-green mt-4 p-6">
+  <UCard variant="subtle" class="mt-auto" :ui="{ header: 'flex items-center gap-1.5 text-dimmed' }">
+
+
+    <form @submit.prevent="handlePost">
+      <UTextarea
+        v-model="comment"
+        color="neutral"
+        variant="none"
+        required
+        autoresize
+        placeholder="Write your comment..."
+        :rows="4"
+        class="w-full"
+        :ui="{ base: 'p-0 resize-none' }"
+      />
+
+      <div class="flex items-center justify-end">
+        <div class="flex items-center justify-end gap-2">
+          <UButton
+            type="submit"
+            color="primary"
+            label="Send"
+            icon="i-lucide-send"
+          />
+        </div>
+      </div>
+    </form>
+  </UCard>
+<!--  <div class="text-sm text-muted-foreground border border-green mt-4 p-6">
     <div class="flex gap-2">
       <div class="flex-1">
         <UTextarea
@@ -51,7 +79,7 @@ async function handlePost() {
         />
       </div>
     </div>
-  </div>
+  </div>-->
 </template>
 
 <style scoped>

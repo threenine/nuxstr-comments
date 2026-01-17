@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.5.4
+
+[compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.5.3...v1.5.4)
+
+### 🏡 Chore
+
+- **dependencies:** Update `@nuxt/ui` to `^4.3.0` ([ee14f9c](https://github.com/threenine/nuxstr-comments/commit/ee14f9c))
+
+### ❤️ Contributors
+
+- Gary Woodfine <lnb0l9dc@duck.com>
+
 ## v1.5.3
 
 [compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.5.2...v1.5.3)

@@ -1,6 +1,6 @@
 {
   "name": "@threenine/nuxstr-comments",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "Nuxt module to enable Nostr Comments on Nuxt 4 based websites",
   "repository": "threenine/nuxstr-comments",
   "license": "MIT",

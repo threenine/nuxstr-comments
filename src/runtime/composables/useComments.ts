@@ -1,7 +1,7 @@
 import { computed, type Ref, ref, type UnwrapRef } from 'vue'
 import { useRequestURL, useRoute, useRuntimeConfig } from '#imports'
 import useNuxstr from './useNuxstr'
-import { NDKEvent, type NDKFilter, NDKKind, type NDKSignedEvent, type NDKSubscription } from '@nostr-dev-kit/ndk'
+
 import type { Comment } from '~/src/runtime/types'
 
 function useComments(customContentId?: string) {

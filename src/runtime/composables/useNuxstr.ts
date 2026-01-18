@@ -84,9 +84,12 @@ function useNuxstr() {
       const account = await signer.user()
       state.signer = signer
       state.pubkey.value = account.pubkey
-      const user = ndk.getUser({ pubkey: account.pubkey })
-      const profile = await user.fetchProfile()
-      state.userProfile.value = mapProfile(profile)
+      const user = await ndk.fetchUser(account.pubkey)
+      if (user !== null) {
+        const profile = await user?.fetchProfile()
+        if (!profile) return undefined
+        state.userProfile.value = mapProfile(profile)
+      }
     }
   }
 

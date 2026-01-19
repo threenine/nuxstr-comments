@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Comment } from '../types'
+
 const props = defineProps<{ replies: Comment[] }>()
 </script>
 

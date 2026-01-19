@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v1.6.0
+
+[compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.5.4...v1.6.0)
+
+### 🚀 Enhancements
+
+- Add initial NostrManager class with basic imports from `nostr-tools` ([f83f57e](https://github.com/threenine/nuxstr-comments/commit/f83f57e))
+- Integrate `useNostr` composable, replace `@nostr-dev-kit/ndk` with `nostr-tools`, and refactor comment/reply subscription logic ([5a5fc6e](https://github.com/threenine/nuxstr-comments/commit/5a5fc6e))
+
+### 💅 Refactors
+
+- Clean up type imports, extend global window typings, and remove unnecessary comments ([6bb8c23](https://github.com/threenine/nuxstr-comments/commit/6bb8c23))
+
+### 🏡 Chore
+
+- Replace `@nostr-dev-kit/ndk` with `nostr-tools` and update profile fetch logic in `useNuxstr` for improved null handling ([3c48c68](https://github.com/threenine/nuxstr-comments/commit/3c48c68))
+
+### ❤️ Contributors
+
+- Gary Woodfine <lnb0l9dc@duck.com>
+
 ## v1.5.4
 
 [compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.5.3...v1.5.4)

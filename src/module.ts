@@ -1,4 +1,4 @@
-import { defineNuxtModule, addPlugin, addComponent, addImports, createResolver } from '@nuxt/kit'
+import { addComponent, addImports, addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit'
 import { defu } from 'defu'
 
 // Module options TypeScript interface definition
@@ -15,27 +15,27 @@ export default defineNuxtModule<ModuleOptions>({
   },
   // Default configuration options of the Nuxt module
   defaults: {
-    relays: ['wss://relay.damus.io', 'wss://purplepag.es/'],
+    relays: ['wss://relay.threenine.services'],
     tagStrategy: 'path',
     tagPrefix: 'comment:',
   },
   setup(options, nuxt) {
     const resolver = createResolver(import.meta.url)
 
-    // Configure Vite to handle tseep and @nostr-dev-kit/ndk properly
+    // Configure Vite to handle tseep and nostr-tools properly
     nuxt.hook('vite:extendConfig', (config) => {
       // Ensure optimizeDeps exist
       config.optimizeDeps = config.optimizeDeps || {}
       config.optimizeDeps.include = config.optimizeDeps.include || []
 
       // Pre-bundle these packages for better ESM/CJS interop
-      config.optimizeDeps.include.push('tseep', '@nostr-dev-kit/ndk', 'nostr-tools', 'defu')
+      config.optimizeDeps.include.push('tseep', 'nostr-tools', 'defu')
 
       // For SSR, don't externalize these packages
       config.ssr = config.ssr || {}
 
       // Handle the noExternal property correctly based on its current type
-      const packagesToInclude = ['tseep', '@nostr-dev-kit/ndk', 'nostr-tools', 'defu']
+      const packagesToInclude = ['tseep', 'nostr-tools', 'defu']
 
       if (!config.ssr.noExternal) {
         config.ssr.noExternal = packagesToInclude
@@ -57,12 +57,12 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.hook('nitro:config', (nitroConfig) => {
       nitroConfig.externals = nitroConfig.externals || {}
       nitroConfig.externals.inline = nitroConfig.externals.inline || []
-      nitroConfig.externals.inline.push('tseep', '@nostr-dev-kit/ndk', 'nostr-tools', 'defu')
+      nitroConfig.externals.inline.push('tseep', 'nostr-tools', 'defu')
     })
 
     // Build transpilation (you already had this)
     nuxt.options.build.transpile = nuxt.options.build.transpile || []
-    nuxt.options.build.transpile.push('tseep', '@nostr-dev-kit/ndk', 'nostr-tools', 'defu')
+    nuxt.options.build.transpile.push('tseep', 'nostr-tools', 'defu')
 
     // Expose runtime config to plugin
     nuxt.options.runtimeConfig.public.nuxstrComments = defu(nuxt.options.runtimeConfig.public.nuxstrComments || {}, options)

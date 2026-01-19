@@ -1,3 +1,7 @@
+export const enum EventKind {
+  Metadata = 0,
+  GenericReply = 1111,
+}
 export type NuxstrProfile = {
   name?: string
   display_name?: string

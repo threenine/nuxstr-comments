@@ -22,7 +22,7 @@
 * vue
 * Typescript
 * nostr-tools
-* NDK
+
 
 # Unit Test
 * vitest

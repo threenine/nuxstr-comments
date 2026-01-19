@@ -1,3 +1,29 @@
+import type { Event } from 'nostr-tools'
+
+export interface Nip07 {
+  getPublicKey: () => Promise<string>
+  signEvent: (event: Event) => Promise<Event>
+  getRelays?: () => Promise<Record<string, { read: boolean, write: boolean }>>
+  nip04?: {
+    encrypt: (pubkey: string, plaintext: string) => Promise<string>
+    decrypt: (pubkey: string, ciphertext: string) => Promise<string>
+  }
+  nip44?: {
+    encrypt: (pubkey: string, plaintext: string) => Promise<string>
+    decrypt: (pubkey: string, ciphertext: string) => Promise<string>
+  }
+}
+
+declare global {
+  interface Window {
+    nostr: Nip07
+  }
+}
+
+export const enum EventKind {
+  Metadata = 0,
+  GenericReply = 1111,
+}
 export type NuxstrProfile = {
   name?: string
   display_name?: string

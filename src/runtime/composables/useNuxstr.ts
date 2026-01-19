@@ -46,7 +46,6 @@ function useNuxstr() {
   async function login(): Promise<void> {
     if (await checkExtension()) {
       try {
-        // @ts-expect-error unresolved variable nostr
         const pubkey = await window.nostr.getPublicKey()
         state.pubkey.value = pubkey
         const profile = await fetchProfile(pubkey)

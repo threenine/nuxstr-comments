@@ -4,7 +4,7 @@ import useNuxstr from './useNuxstr'
 import { useNostr } from './useNostr'
 import type { Event, Filter } from 'nostr-tools'
 
-import type { Comment } from '~/src/runtime/types'
+import type { Comment } from '../types'
 
 function useComments(customContentId?: string) {
   const { isLoggedIn, pubkey, fetchProfile } = useNuxstr()
@@ -73,10 +73,7 @@ function useComments(customContentId?: string) {
     const { publish } = useNostr()
     try {
       const event = await createCommentEvent(comment)
-      console.log('event', event)
-      // @ts-expect-error unresolved variable nostr
       const signedEvent = await window.nostr.signEvent(event)
-      console.log('signedEvent', signedEvent)
       await publish(signedEvent)
       return true
     }

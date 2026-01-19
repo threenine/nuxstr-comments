@@ -1,8 +1,8 @@
-import {computed, ref} from 'vue'
+import { computed, ref } from 'vue'
 import useNuxstr from './useNuxstr'
-import {useNostr} from './useNostr'
-import type {Event, Filter} from 'nostr-tools'
-import type {Comment} from '~/src/runtime/types'
+import { useNostr } from './useNostr'
+import type { Event, Filter } from 'nostr-tools'
+import type { Comment } from '../types'
 
 function useReplies(rootCommentId: string) {
   const { pubkey, fetchProfile } = useNuxstr()
@@ -34,7 +34,6 @@ function useReplies(rootCommentId: string) {
     const { publish } = useNostr()
     try {
       const event = await createReplyEvent(comment)
-      // @ts-expect-error unresolved variable nostr
       const signedEvent = await window.nostr.signEvent(event)
       await publish(signedEvent)
       return true

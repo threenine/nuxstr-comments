@@ -1,5 +1,5 @@
-import type {Event as NToolEvent, Filter,} from 'nostr-tools'
-import {SimplePool, verifyEvent,} from 'nostr-tools'
+import type { Event as NToolEvent, Filter } from 'nostr-tools'
+import { SimplePool, verifyEvent } from 'nostr-tools'
 
 export class NostrManager {
   private static instance: NostrManager
@@ -37,8 +37,7 @@ export class NostrManager {
   }
 
   public async publish(event: NToolEvent): Promise<void> {
-   await this.pool.publish(this.relays, event)
-
+    await this.pool.publish(this.relays, event)
   }
 
   public async getEvent(filter: Filter): Promise<NToolEvent | null> {

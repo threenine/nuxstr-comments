@@ -19,7 +19,7 @@ defineProps<{ content: string, id: string }>()
         class="w-full"
         :ui="{ base: 'p-0 resize-none' }"
       />
-    </ucard>
+    </UCard>
     <ReplyButton :content-id="id" />
   </div>
 </template>

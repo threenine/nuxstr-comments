@@ -35,15 +35,15 @@ onMounted(() => {
         </u-tooltip>
       </div>
     </div>
-    <ClientOnly>
+
       <div
         v-if="isLoggedIn"
         class="text-sm text-muted-foreground"
       >
         <PostComment :content-id="contentId" />
       </div>
-    </ClientOnly>
-    <ClientOnly>
+
+
       <div class="space-y-4">
         <div
           v-if="loading"
@@ -82,8 +82,7 @@ onMounted(() => {
           />
         </div>
       </div>
-    </ClientOnly>
-    <client-only />
+
   </div>
 </template>
 

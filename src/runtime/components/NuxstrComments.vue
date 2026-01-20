@@ -36,53 +36,51 @@ onMounted(() => {
       </div>
     </div>
 
+    <div
+      v-if="isLoggedIn"
+      class="text-sm text-muted-foreground"
+    >
+      <PostComment :content-id="contentId" />
+    </div>
+
+    <div class="space-y-4">
       <div
-        v-if="isLoggedIn"
-        class="text-sm text-muted-foreground"
+        v-if="loading"
       >
-        <PostComment :content-id="contentId" />
+        <scaffold-comment />
       </div>
 
-
-      <div class="space-y-4">
-        <div
-          v-if="loading"
-        >
+      <div
+        v-else
+        class="space-y-6"
+      >
+        <div v-if="comments.length === 0">
           <scaffold-comment />
         </div>
+        <UCard
+          v-for="c in comments"
+          v-else
+          :key="c.id"
+          variant="subtle"
+          class="mt-auto"
+          :ui="{ header: 'flex items-center gap-1.5 text-dimmed' }"
+        >
+          <comment-author
+            :profile="c.profile"
+            :created-at="c.created_at"
+          />
+          <comment-view
+            :id="c.id"
+            :content="c.content"
+          />
+        </UCard>
 
         <div
-          v-else
-          class="space-y-6"
-        >
-          <div v-if="comments.length === 0">
-            <scaffold-comment />
-          </div>
-          <UCard
-            v-for="c in comments"
-            v-else
-            :key="c.id"
-            variant="subtle"
-            class="mt-auto"
-            :ui="{ header: 'flex items-center gap-1.5 text-dimmed' }"
-          >
-            <comment-author
-              :profile="c.profile"
-              :created-at="c.created_at"
-            />
-            <comment-view
-              :id="c.id"
-              :content="c.content"
-            />
-          </UCard>
-
-          <div
-            v-if="isLoggedIn"
-            class=" mt-5"
-          />
-        </div>
+          v-if="isLoggedIn"
+          class=" mt-5"
+        />
       </div>
-
+    </div>
   </div>
 </template>
 

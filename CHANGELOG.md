@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v1.6.1
+
+[compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.6.0...v1.6.1)
+
+### 💅 Refactors
+
+- Remove redundant `ClientOnly` usage in NuxstrComments.vue and fix UCard tag casing in CommentView.vue ([8244cbb](https://github.com/threenine/nuxstr-comments/commit/8244cbb))
+- **NuxstrComments.vue:** Simplify template structure and optimize spacing/layout consistency ([e6ff9b6](https://github.com/threenine/nuxstr-comments/commit/e6ff9b6))
+
+### ❤️ Contributors
+
+- Gary Woodfine <lnb0l9dc@duck.com>
+
 ## v1.6.0
 
 [compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.5.4...v1.6.0)

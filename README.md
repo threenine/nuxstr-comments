@@ -6,7 +6,7 @@ Find and replace all on all files (CMD+SHIFT+F):
 - Package name: @threenine/nuxstr-comments
 - Description: Nuxstr Comments
 -->
-
+![Nuxt Fathom module](https://res.cloudinary.com/threenine-co-uk/image/upload/v1733252921/nuxstr-comments_rk7pig.png)
 # Nuxstr Comments
 
 [![npm version][npm-version-src]][npm-version-href]
@@ -14,6 +14,7 @@ Find and replace all on all files (CMD+SHIFT+F):
 [![License][license-src]][license-href]
 [![Nuxt][nuxt-src]][nuxt-href]
 
+![]()
 Enable [nostr protocol](https://nostr.com/) based comment system on your Nuxt 4 based applications.
 
 - [✨ &nbsp;Release Notes](/CHANGELOG.md)

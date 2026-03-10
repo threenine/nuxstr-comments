@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import useNuxstr from '../composables/useNuxstr'
 import useComments from '../composables/useComments'
+import SignInModal from './SignInModal.vue'
 
 const props = defineProps<{ contentId?: string }>()
-const { login, isLoggedIn } = useNuxstr()
+const { isLoggedIn } = useNuxstr()
 const { comments, subscribeComments, loading } = useComments(props.contentId)
+
+const isSignInModalOpen = ref(false)
 
 onMounted(() => {
   subscribeComments()
@@ -23,16 +26,16 @@ onMounted(() => {
         v-if="!isLoggedIn"
         class="text-sm text-muted-foreground"
       >
-        <u-tooltip text="Sign in with NIP07 browser extension like Alby or nos2fx to comment">
-          <UButton
-            color="primary"
-            variant="solid"
-            leading-icon="game-icons:ostrich"
-            @click="login"
-          >
-            Sign in
-          </UButton>
-        </u-tooltip>
+        <UButton
+          color="primary"
+          variant="solid"
+          leading-icon="game-icons:ostrich"
+          @click="isSignInModalOpen = true"
+        >
+          Sign in
+        </UButton>
+
+        <SignInModal v-model:open="isSignInModalOpen" />
       </div>
     </div>
 

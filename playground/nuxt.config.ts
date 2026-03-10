@@ -4,6 +4,6 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
   compatibilityDate: '2025-08-19',
   nuxstrComments: {
-    relays: ['wss://relay.threenine.services']
+    relays: ['ws://localhost:10547'],
   },
 })

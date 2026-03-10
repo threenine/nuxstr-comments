@@ -26,12 +26,15 @@ export class NostrManager {
     return NostrManager.instance
   }
 
-  public subscribe(filter: Filter, onEvent: (event: NToolEvent) => void) {
+  public subscribe(filter: Filter, onEvent: (event: NToolEvent) => void, onEose?: () => void) {
     return this.pool.subscribeMany(this.relays, filter, {
       onevent(event) {
         if (verifyEvent(event)) {
           onEvent(event)
         }
+      },
+      oneose() {
+        if (onEose) onEose()
       },
     })
   }

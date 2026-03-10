@@ -3,7 +3,6 @@
 </script>
 
 <template>
-
   <nuxstr-comments />
 </template>
 

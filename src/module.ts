@@ -57,12 +57,12 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.hook('nitro:config', (nitroConfig) => {
       nitroConfig.externals = nitroConfig.externals || {}
       nitroConfig.externals.inline = nitroConfig.externals.inline || []
-      nitroConfig.externals.inline.push('tseep', 'nostr-tools', 'defu')
+      nitroConfig.externals.inline.push('nostr-tools', 'defu')
     })
 
     // Build transpilation (you already had this)
     nuxt.options.build.transpile = nuxt.options.build.transpile || []
-    nuxt.options.build.transpile.push('tseep', 'nostr-tools', 'defu')
+    nuxt.options.build.transpile.push('nostr-tools', 'defu')
 
     // Expose runtime config to plugin
     nuxt.options.runtimeConfig.public.nuxstrComments = defu(nuxt.options.runtimeConfig.public.nuxstrComments || {}, options)

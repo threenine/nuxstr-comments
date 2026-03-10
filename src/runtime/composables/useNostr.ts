@@ -11,8 +11,8 @@ export const useNostr = (relays?: string[]) => {
   const effectiveRelays = relays || opts.relays || []
   const nostrManager = NostrManager.getInstance(effectiveRelays)
 
-  const subscribe = (filter: Filter, onEvent: (event: Event) => void) => {
-    return nostrManager.subscribe(filter, onEvent)
+  const subscribe = (filter: Filter, onEvent: (event: Event) => void, onEose?: () => void) => {
+    return nostrManager.subscribe(filter, onEvent, onEose)
   }
 
   const publish = (event: Event) => {

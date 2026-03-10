@@ -1,14 +1,28 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import useNuxstr from '../composables/useNuxstr'
 import useComments from '../composables/useComments'
 import SignInModal from './SignInModal.vue'
 
 const props = defineProps<{ contentId?: string }>()
+const emit = defineEmits(['querying', 'completed', 'no-comments'])
+
 const { isLoggedIn } = useNuxstr()
 const { comments, subscribeComments, loading } = useComments(props.contentId)
 
 const isSignInModalOpen = ref(false)
+
+watch(loading, (isLoading) => {
+  if (isLoading) {
+    emit('querying')
+  }
+  else {
+    emit('completed')
+    if (comments.value.length === 0) {
+      emit('no-comments')
+    }
+  }
+})
 
 onMounted(() => {
   subscribeComments()
@@ -49,8 +63,12 @@ onMounted(() => {
     <div class="space-y-4">
       <div
         v-if="loading"
+        class="space-y-4"
       >
-        <scaffold-comment />
+        <scaffold-comment
+          v-for="n in 3"
+          :key="n"
+        />
       </div>
 
       <div
@@ -58,7 +76,9 @@ onMounted(() => {
         class="space-y-6"
       >
         <div v-if="comments.length === 0">
-          <scaffold-comment />
+          <p class="text-xs">
+            No comments available
+          </p>
         </div>
         <UCard
           v-for="c in comments"

@@ -49,24 +49,31 @@ function useComments(customContentId?: string) {
   }
 
   async function subscribeComments() {
+    loading.value = true
     const filter: Filter = {
       kinds: [1111], // NDKKind.GenericReply is 22
       ['#t']: [tagValue()],
       limit: 100,
     }
 
-    subscribe(filter, async (event: Event) => {
-      if (commentsData.value.some(c => c.id === event.id)) return
-      const comment: Comment = {
-        id: event.id,
-        pubkey: event.pubkey,
-        created_at: event.created_at,
-        content: event.content,
-        profile: undefined,
-      }
-      comment.profile = await fetchProfile(event.pubkey)
-      commentsData.value.push(comment)
-    })
+    subscribe(
+      filter,
+      async (event: Event) => {
+        if (commentsData.value.some(c => c.id === event.id)) return
+        const comment: Comment = {
+          id: event.id,
+          pubkey: event.pubkey,
+          created_at: event.created_at,
+          content: event.content,
+          profile: undefined,
+        }
+        comment.profile = await fetchProfile(event.pubkey)
+        commentsData.value.push(comment)
+      },
+      () => {
+        loading.value = false
+      },
+    )
   }
 
   async function postComment(comment: string) {

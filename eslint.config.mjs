@@ -17,7 +17,9 @@ export default createConfigForNuxt({
 })
   .append(
     {
-      ignores: ['playground/**/*'],
+      rules: {
+        'vue/multi-word-component-names': 'off',
+      },
 
     },
     // your custom flat config here...

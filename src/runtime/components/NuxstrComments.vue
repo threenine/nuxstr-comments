@@ -1,11 +1,28 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import useNuxstr from '../composables/useNuxstr'
 import useComments from '../composables/useComments'
+import SignInModal from './SignInModal.vue'
 
 const props = defineProps<{ contentId?: string }>()
-const { login, isLoggedIn } = useNuxstr()
+const emit = defineEmits(['querying', 'completed', 'no-comments'])
+
+const { isLoggedIn } = useNuxstr()
 const { comments, subscribeComments, loading } = useComments(props.contentId)
+
+const isSignInModalOpen = ref(false)
+
+watch(loading, (isLoading) => {
+  if (isLoading) {
+    emit('querying')
+  }
+  else {
+    emit('completed')
+    if (comments.value.length === 0) {
+      emit('no-comments')
+    }
+  }
+})
 
 onMounted(() => {
   subscribeComments()
@@ -23,16 +40,16 @@ onMounted(() => {
         v-if="!isLoggedIn"
         class="text-sm text-muted-foreground"
       >
-        <u-tooltip text="Sign in with NIP07 browser extension like Alby or nos2fx to comment">
-          <UButton
-            color="primary"
-            variant="solid"
-            leading-icon="game-icons:ostrich"
-            @click="login"
-          >
-            Sign in
-          </UButton>
-        </u-tooltip>
+        <UButton
+          color="primary"
+          variant="solid"
+          leading-icon="game-icons:ostrich"
+          @click="isSignInModalOpen = true"
+        >
+          Sign in
+        </UButton>
+
+        <SignInModal v-model:open="isSignInModalOpen" />
       </div>
     </div>
 
@@ -46,8 +63,12 @@ onMounted(() => {
     <div class="space-y-4">
       <div
         v-if="loading"
+        class="space-y-4"
       >
-        <scaffold-comment />
+        <scaffold-comment
+          v-for="n in 3"
+          :key="n"
+        />
       </div>
 
       <div
@@ -55,7 +76,13 @@ onMounted(() => {
         class="space-y-6"
       >
         <div v-if="comments.length === 0">
-          <scaffold-comment />
+          <UEmpty
+            icon="i-lucide-message-square-off"
+            title="No comments yet"
+            description="Be the first to share your thoughts!"
+            variant="subtle"
+            size="sm"
+          />
         </div>
         <UCard
           v-for="c in comments"

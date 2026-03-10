@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v1.7.0
+
+[compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.6.1...v1.7.0)
+
+### 🚀 Enhancements
+
+- **NuxstrComments.vue:** Add SignInModal component and NIP-07 browser extension support for sign-in ([55855a0](https://github.com/threenine/nuxstr-comments/commit/55855a0))
+- **NuxstrComments.vue:** Enhance comment subscription with query state events and improve skeleton loading display ([2971750](https://github.com/threenine/nuxstr-comments/commit/2971750))
+- **NuxstrComments.vue:** Replace "No comments available" message with UEmpty component for enhanced UI consistency ([cda6f63](https://github.com/threenine/nuxstr-comments/commit/cda6f63))
+
+### 🏡 Chore
+
+- Adjust formatting in various components and configuration files for improved readability and consistency ([762dd94](https://github.com/threenine/nuxstr-comments/commit/762dd94))
+
+### ❤️ Contributors
+
+- Gary Woodfine <lnb0l9dc@duck.com>
+
 ## v1.6.1
 
 [compare changes](https://github.com/threenine/nuxstr-comments/compare/v1.6.0...v1.6.1)

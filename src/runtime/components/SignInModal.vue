@@ -19,12 +19,19 @@ function handleSuccess() {
         <!-- Nostr Education -->
         <div class="p-4 rounded-lg bg-muted/50">
           <div class="flex items-center gap-2 mb-2 text-sm font-semibold">
-            <UIcon name="i-lucide-help-circle" class="w-4 h-4" />
+            <UIcon
+              name="i-lucide-help-circle"
+              class="w-4 h-4"
+            />
             What is Nostr?
           </div>
           <p class="text-xs leading-relaxed text-muted-foreground">
             Nostr is a decentralized protocol for social media. Instead of a username and password, you use a cryptographic key pair.
-            Your "public key" is your identity, and your "private key" is used to sign messages.  <a href="https://threenine.blog/posts/what-is-nostr" target="_blank" class="underline hover:text-primary text-primary">Learn more...</a>
+            Your "public key" is your identity, and your "private key" is used to sign messages.  <a
+              href="https://threenine.blog/posts/what-is-nostr"
+              target="_blank"
+              class="underline hover:text-primary text-primary"
+            >Learn more...</a>
           </p>
         </div>
 

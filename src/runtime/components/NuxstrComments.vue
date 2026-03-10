@@ -76,9 +76,13 @@ onMounted(() => {
         class="space-y-6"
       >
         <div v-if="comments.length === 0">
-          <p class="text-xs">
-            No comments available
-          </p>
+          <UEmpty
+            icon="i-lucide-message-square-off"
+            title="No comments yet"
+            description="Be the first to share your thoughts!"
+            variant="subtle"
+            size="sm"
+          />
         </div>
         <UCard
           v-for="c in comments"
